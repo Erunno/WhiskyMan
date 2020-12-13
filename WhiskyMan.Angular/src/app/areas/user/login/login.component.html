@@ -1,0 +1,18 @@
+<div class="container">
+ <div class="text-center">
+  <form class="form-signin">
+   <img class="mb-4" src="https://timkingstudio.com/wp-content/uploads/2017/07/cheers.png" alt="" width="120">
+   <h1 class="h3 mb-3 font-weight-normal">Log in</h1>
+   <label for="inputEmail" class="sr-only">Username</label>
+   <input [(ngModel)]="user.username" name="name" type="username" class="form-control" placeholder="Username" required autofocus="">
+   <label for="inputPassword" class="sr-only">Password</label>
+   <input [(ngModel)]="user.password" name="password" type="password" class="form-control mt-1" placeholder="Password" required>
+   <button class="btn btn-lg btn-primary btn-block mt-4" type="submit" (click)="login()">Log in</button>
+   <p class="mt-5 mb-3 text-muted">© supr chlapy</p>
+  </form>
+ </div>
+</div>
+
+<app-overlaying-spiner [topPercent]="30" *ngIf="loading"></app-overlaying-spiner>
+
+<app-top-alert [alerts]="alerts"></app-top-alert>

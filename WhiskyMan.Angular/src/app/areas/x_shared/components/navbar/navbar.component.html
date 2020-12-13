@@ -1,0 +1,28 @@
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  <a class="navbar-brand" [routerLink]="['/home']" routerLinkActive="router-link-active" >Whisky Manager</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarCollapse">
+    <ul class="navbar-nav mr-auto">
+      <ng-container *ngIf="authService.isLoggedIn">
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/bottles']" routerLinkActive="router-link-active" >Bottles</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/transactions']" routerLinkActive="router-link-active" >Transactions</a>
+        </li>
+      </ng-container>
+    </ul>
+
+    <ng-container *ngIf="authService.isLoggedIn">
+      <a class="text-success mr-2 hand-cursor" >{{ authService.loggedUser?.fullName }}</a>
+      <a class="text-danger hand-cursor" (click)="logout()">Log out</a>
+    </ng-container>
+
+    <ng-container *ngIf="!authService.isLoggedIn">
+      <a class="btn btn-success" [routerLink]="['/login']" routerLinkActive="router-link-active" >Log in</a>
+      <a class="btn btn-outline-success" [routerLink]="['/register']" routerLinkActive="router-link-active" >Register</a>
+    </ng-container>
+  </div>
+</nav>

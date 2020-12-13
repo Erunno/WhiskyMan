@@ -1,0 +1,12 @@
+div.next-to-sidenav {
+  padding-left: 0px;
+  -webkit-transition: padding-left .25s ease-out;
+  -moz-transition: padding-left .25s ease-out;
+  -o-transition: padding-left .25s ease-out;
+  transition: padding-left .25s ease-out;
+}
+@media (min-width: 768px) {
+  div.next-to-sidenav {
+    padding-left: 250px;
+  }
+}

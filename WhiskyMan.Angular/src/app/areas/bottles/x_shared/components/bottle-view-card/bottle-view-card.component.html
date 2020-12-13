@@ -1,0 +1,9 @@
+<div class="card" style="width: 15rem;">
+  <img class="card-img-top" [src]="bottle.pictureUrl" alt="bottle img">
+  <div class="card-body">
+    <h5 class="card-title">{{ bottle.name }}</h5>
+    <p class="card-text">{{ bottle.distillery }}</p>
+    <a href="#" class="btn btn-success">Buy</a>
+    <a [routerLink]="['../detail', bottle.id]" class="btn btn-primary">Detail</a>
+  </div>
+</div>

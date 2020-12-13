@@ -1,0 +1,12 @@
+<app-sidebar
+  [links]="[
+    { path: '/bottles/all-active-list', label: 'All bottles'},
+    { path: '/bottles/my-list', label: 'My bottles'},
+    { path: '/bottles/add-bottle', label: 'Add bottle'},
+    { path: '/bottles/add-description', label: 'Add description'}
+  ]"
+></app-sidebar>
+
+<div class="next-to-sidenav">
+ <router-outlet></router-outlet>
+</div>
