@@ -15,19 +15,19 @@ namespace WhiskyMan.Entities
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(100)]
+        [MaxLength(EntitiesConfig.NameLength)]
         public string Username { get; set; }
         [Required]
-        [MaxLength(100)]
+        [MaxLength(EntitiesConfig.NameLength)]
         public string FirstName { get; set; }
         [Required]
-        [MaxLength(100)]
+        [MaxLength(EntitiesConfig.NameLength)]
         public string LastName { get; set; }
         [Required]
-        [MaxLength(100)]
+        [MaxLength(EntitiesConfig.EmailLength)]
         public string Email { get; set; }
         [Required]
-        [MaxLength(400)]
+        [MaxLength(EntitiesConfig.UrlLength)]
         public string PictureUrl { get; set; }
 
         public byte[] PasswordSalt { get; set; }
