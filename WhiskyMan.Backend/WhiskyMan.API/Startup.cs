@@ -1,4 +1,5 @@
 using AutoMapper;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -29,6 +30,8 @@ namespace WhiskyMan
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddMvc()
+                .AddFluentValidation(config => config.RegisterValidatorsFromAssemblyContaining<Models.User.UserModel>());
 
             //Sqlite database
             services.AddDbContext<DataContext>(

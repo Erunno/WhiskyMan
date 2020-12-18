@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using WhiskyMan.Entities;
-using WhiskyMan.Models.Dtos.User;
+using WhiskyMan.Models.User;
 using WhiskyMan.Models.User;
 
 namespace WhiskyMan.Repositories.Mapping

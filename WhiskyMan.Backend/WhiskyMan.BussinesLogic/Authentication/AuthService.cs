@@ -7,7 +7,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using WhiskyMan.Models.Dtos.User;
+using WhiskyMan.Models.User;
 using WhiskyMan.Models.User;
 using WhiskyMan.Repositories.Interfaces;
 

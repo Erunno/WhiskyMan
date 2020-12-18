@@ -6,7 +6,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
 using WhiskyMan.BusinessLogic.Authentication;
-using WhiskyMan.Models.Dtos.User;
+using WhiskyMan.Models.User;
 using WhiskyMan.Repositories.Interfaces;
 
 namespace WhiskyMan.API.Controllers
