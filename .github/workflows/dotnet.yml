@@ -16,7 +16,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.1
+        dotnet-version: 5.0.101
     - name: Change directory
       run: cd WhiskyMan.Backend 
     - name: Restore dependencies
