@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WhiskyMan.Entities
 {
-    public class Transaction
+    public record Transaction
     {
         [Key]
         public int Id { get; set; }

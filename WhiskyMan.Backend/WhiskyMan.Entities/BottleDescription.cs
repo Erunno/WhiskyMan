@@ -6,7 +6,7 @@ using System.Text;
 
 namespace WhiskyMan.Entities
 {
-    public class BottleDescription
+    public record BottleDescription
     {
         [Key]
         public int Id { get; set; }
