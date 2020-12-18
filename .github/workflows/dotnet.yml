@@ -18,7 +18,8 @@ jobs:
       with:
         dotnet-version: 5.0.101
     - name: Change directory
-      run: cd WhiskyMan.Backend 
+      run: cd WhiskyMan.Backend
+    - name: List current dir
       run: ls -l
     - name: Restore dependencies
       run: dotnet restore
