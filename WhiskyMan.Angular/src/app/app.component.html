@@ -4,3 +4,8 @@
 <main role="main">
     <router-outlet></router-outlet>
 </main>
+
+<app-overlaying-spiner
+  [topPercent]="spinnerService.topPercent"
+  *ngIf="spinnerService.spinnerIsShown">
+</app-overlaying-spiner>

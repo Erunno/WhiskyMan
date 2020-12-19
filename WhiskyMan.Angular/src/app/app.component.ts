@@ -1,3 +1,4 @@
+import { OverlayingSpinnerService } from './areas/x_shared/services/overlaying-spiner/overlaying-spinner.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -7,4 +8,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'WhiskyMan';
+
+  constructor(
+    public spinnerService: OverlayingSpinnerService
+  ) {}
 }
