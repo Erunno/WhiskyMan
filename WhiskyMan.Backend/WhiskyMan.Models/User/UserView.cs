@@ -4,7 +4,7 @@ using System.Text;
 
 namespace WhiskyMan.Models.User
 {
-    public class UserView
+    public record UserView
     {
         public int Id { get; set; }
         public string FullName { get; set; }

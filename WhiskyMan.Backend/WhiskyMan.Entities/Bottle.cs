@@ -5,7 +5,7 @@ using System.Collections.ObjectModel;
 
 namespace WhiskyMan.Entities
 {
-    public class Bottle
+    public record Bottle
     {
         [Key]
         public int Id { get; set; }

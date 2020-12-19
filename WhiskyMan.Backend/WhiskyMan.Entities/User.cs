@@ -9,7 +9,7 @@ namespace WhiskyMan.Entities
 {
     [Index(nameof(Username), IsUnique = true)]
     [Index(nameof(Email), IsUnique = true)]
-    public class User
+    public record User
     {
         [Key]
         public int Id { get; set; }

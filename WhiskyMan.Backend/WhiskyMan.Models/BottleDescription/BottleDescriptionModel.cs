@@ -4,7 +4,7 @@ using System.Text;
 
 namespace WhiskyMan.Models.BottleDescription
 {
-    class BottleDescriptionModel
+    public record BottleDescriptionModel
     {
     }
 }
