@@ -1,3 +1,4 @@
+import { OverlyingAlertService } from './areas/x_shared/services/overlying-alert/overlying-alert.service';
 import { OverlayingSpinnerService } from './areas/x_shared/services/overlaying-spiner/overlaying-spinner.service';
 import { Component } from '@angular/core';
 
@@ -10,6 +11,7 @@ export class AppComponent {
   title = 'WhiskyMan';
 
   constructor(
-    public spinnerService: OverlayingSpinnerService
+    public spinnerService: OverlayingSpinnerService,
+    public alertService: OverlyingAlertService
   ) {}
 }

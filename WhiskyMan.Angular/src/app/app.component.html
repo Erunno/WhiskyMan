@@ -5,7 +5,11 @@
     <router-outlet></router-outlet>
 </main>
 
+<!-- global servises -->
+
 <app-overlaying-spiner
   [topPercent]="spinnerService.topPercent"
   *ngIf="spinnerService.spinnerIsShown">
 </app-overlaying-spiner>
+
+<app-top-alert [alerts]="alertService.activeAlerts"></app-top-alert>
