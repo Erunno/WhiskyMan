@@ -10,3 +10,15 @@ div.next-to-sidenav {
     padding-left: 250px;
   }
 }
+
+/*invalid inputs*/
+input.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+/*lables for required fileds*/
+label.label-for-required::after {
+  content: "*";
+  color: blue;
+}

@@ -37,7 +37,8 @@ namespace WhiskyMan.Repositories.Tests.Mapping
                 .Where(p => !exceptProperties.Contains(p.Name));
 
             foreach (var prop in propertiesToCheck)
-                Assert.AreEqual(prop.GetValue(expected), prop.GetValue(actual));
+                Assert.AreEqual(prop.GetValue(expected), prop.GetValue(actual),
+                    $"Unexpected value of property {typeof(TDestination).Name}.{prop.Name}");
         }
     }
 }

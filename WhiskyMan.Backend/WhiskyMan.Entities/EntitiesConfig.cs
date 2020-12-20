@@ -10,5 +10,6 @@ namespace WhiskyMan.Entities
         public const int NameLength = 50;
         public const int EmailLength = 50;
         public const int PasswdLength = 100;
+        public const int DescriptionLength = 1000;
     }
 }

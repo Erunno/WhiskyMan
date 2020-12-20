@@ -1,0 +1,8 @@
+div.bottle-img-container {
+  height: 446px;
+}
+
+div.bottle-img-container img {
+  height: 100%;
+  object-fit: cover;
+}

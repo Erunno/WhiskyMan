@@ -24,8 +24,8 @@ namespace WhiskyMan.Repositories
         public IQueryable<BottleDescription> BottleDescriptions => context.BottleDescriptions;
         public IQueryable<Transaction> Transactions => context.Transactions;
         
-        public ValueTask<EntityEntry<TEntity>> AddEntityAsync<TEntity>(TEntity user) where TEntity : class 
-            => context.AddAsync<TEntity>(user);
+        public ValueTask<EntityEntry<TEntity>> AddEntityAsync<TEntity>(TEntity entity) where TEntity : class 
+            => context.AddAsync<TEntity>(entity);
 
         public Task<int> SaveChangesAsync() => context.SaveChangesAsync();
 

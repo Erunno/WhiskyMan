@@ -1,10 +1,13 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace WhiskyMan.Entities
 {
+    [Index(nameof(IsPayed), nameof(CreationTime), IsUnique = false)]
+    [Index(nameof(CreationTime), IsUnique = false)]
     public record Transaction
     {
         [Key]
