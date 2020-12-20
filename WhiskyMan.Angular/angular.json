@@ -120,6 +120,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "WhiskyMan"
+    }
+  },
+  "defaultProject": "WhiskyMan",
+  "cli": {
+    "analytics": "4a207e98-f14d-4dbe-9bc3-40c41fe53dbd"
+  }
 }

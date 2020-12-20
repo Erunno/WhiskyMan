@@ -6,7 +6,7 @@ using WhiskyMan.Entities;
 
 namespace WhiskyMan.Models.User
 {
-    public class UserForRegister
+    public record UserForRegister
     {
         public string Username { get; set; }
         public string FirstName { get; set; }

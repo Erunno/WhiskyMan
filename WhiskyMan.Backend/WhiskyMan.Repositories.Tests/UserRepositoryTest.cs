@@ -43,7 +43,7 @@ namespace WhiskyMan.Repositories.Tests
         public async Task AddUser_ValidUser_ShouldBeSaved()
         {
             using(var mock = AutoMock.GetStrict(builder =>
-                builder.RegisterType<MapperForTesting>().As<IMapper>()
+                builder.RegisterInstance(MapperProvider.GetMapper())
             ))
             {
                 // arrange
