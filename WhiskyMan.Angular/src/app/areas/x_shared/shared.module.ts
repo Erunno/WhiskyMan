@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './services/auth/auth-http-iterceptor';
 import { OverlayingSpinerComponent } from './components/overlaying-spiner/overlaying-spiner.component';
-import { TopAlertComponent } from './components/top-alert/top-alert.component';
+import { TopAlertComponent } from './components/overlying-alert/top-alert.component';
 
 @NgModule({
   declarations: [

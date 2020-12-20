@@ -1,9 +1,11 @@
-import { AlertType } from './../../x_shared/components/top-alert/alert-type';
+import { OverlyingAlertService } from './../../x_shared/services/overlying-alert/overlying-alert.service';
+import { OverlayingSpinnerService } from './../../x_shared/services/overlaying-spiner/overlaying-spinner.service';
+import { AlertType } from '../../x_shared/components/overlying-alert/alert-type';
 import { AuthService } from './../../x_shared/services/auth/auth.service';
 import { UserForLogin } from './../x_models/user-for-login';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Alert } from '../../x_shared/components/top-alert/alert';
+import { Alert } from '../../x_shared/components/overlying-alert/alert';
 
 @Component({
   selector: 'app-login',
@@ -13,28 +15,27 @@ import { Alert } from '../../x_shared/components/top-alert/alert';
 export class LoginComponent implements OnInit {
 
   user: UserForLogin = { username: '', password: '' };
-  loading = false;
-
-  alerts: Alert[] = [];
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private spinnerService: OverlayingSpinnerService,
+    private alertService: OverlyingAlertService
   ) { }
 
   ngOnInit(): void {
   }
 
   public login(): void {
-    this.loading = true;
+    this.spinnerService.showSpinner(30); // 30 is topPercent
+
     this.authService.logIn(this.user,
       _ => {
         this.router.navigate(['bottles/all-active-list']);
-        this.loading = false;
       },
       err => {
-        this.alerts.push({ type: AlertType.Error, message: 'Wrong combination of username and password' });
-        this.loading = false;
+        this.alertService.addAlert({ type: AlertType.Error, message: 'Wrong combination of username and password'});
+        this.spinnerService.hideSpiner();
       });
   }
 }
