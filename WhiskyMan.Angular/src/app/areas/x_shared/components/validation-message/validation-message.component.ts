@@ -10,9 +10,9 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 export class ValidationMessageComponent implements OnInit {
 
-  @Input() public messages: ValidationMessageDictionary;
-  @Input() public for: string;
-  @Input() public form: FormGroup;
+  @Input("using") public messages: ValidationMessageDictionary;
+  @Input("for") public elementAccessor: string;
+  @Input("in") public form: FormGroup;
 
   public formControl: FormControl;
   public errors: {[s: string]: boolean};
@@ -20,10 +20,10 @@ export class ValidationMessageComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.formControl = this.form.get(this.for) as FormControl;
+    this.formControl = this.form.get(this.elementAccessor) as FormControl;
 
     if (!this.formControl) {
-      console.error(`FormContorol '${this.for}' does not exist in provided FormGroup`);
+      console.error(`FormContorol '${this.elementAccessor}' does not exist in provided FormGroup`);
     }
   }
 
@@ -66,7 +66,7 @@ export class ValidationMessageComponent implements OnInit {
   }
 
   private getElementName() {
-    const splitedElemName = this.for.split('.');
+    const splitedElemName = this.elementAccessor.split('.');
     return splitedElemName[splitedElemName.length - 1]
   }
 
