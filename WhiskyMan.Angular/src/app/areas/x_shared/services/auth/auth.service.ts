@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 import jwt_decode from 'jwt-decode';
 import { EventEmitter } from '@angular/core';
 import { Action } from 'rxjs/internal/scheduler/Action';
+import {UserForRegistration} from '../../../user/x_models/user-for-registration';
 
 @Injectable({
   providedIn: 'root'
@@ -45,7 +46,11 @@ export class AuthService {
     return this.currLoggedUser;
   }
 
-  public logIn(user: UserForLogin, successCallback?: (user: UserView) => void, errorCallback?: (error: any) => void): void {
+  public logIn(
+    user: UserForLogin,
+    successCallback?: (user: UserView) => void,
+    errorCallback?: (error: any) => void
+  ): void {
     this.http.post<{ token: string }>(this.baseAddr + 'login', user)
       .subscribe(
         response => {
@@ -53,11 +58,15 @@ export class AuthService {
           this.loggedIn = true;
 
           this.loadUserView();
-          if (successCallback) { successCallback(this.currLoggedUser); }
+          if (successCallback) {
+            successCallback(this.currLoggedUser);
+          }
         },
         err => {
           this.error = err;
-          if (errorCallback) { errorCallback(err); }
+          if (errorCallback) {
+            errorCallback(err);
+          }
         });
   }
 
@@ -73,5 +82,25 @@ export class AuthService {
     localStorage.removeItem('jwt_token');
     this.loggedIn = false;
     this.currLoggedUser = null;
+  }
+
+  public register(
+    user: UserForRegistration,
+    successCallback?: (user: UserForRegistration) => void,
+    errorCallback?: (error: any) => void
+  ): void {
+    this.http.post(this.baseAddr + 'register', user)
+      .subscribe(
+        () => {
+          if (successCallback) {
+            successCallback(user);
+          }
+        },
+        err => {
+          this.error = err;
+          if (errorCallback) {
+            errorCallback(err);
+          }
+        });
   }
 }

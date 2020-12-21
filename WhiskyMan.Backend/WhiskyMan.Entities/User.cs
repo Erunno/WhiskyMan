@@ -26,7 +26,6 @@ namespace WhiskyMan.Entities
         [Required]
         [MaxLength(EntitiesConfig.EmailLength)]
         public string Email { get; set; }
-        [Required]
         [MaxLength(EntitiesConfig.UrlLength)]
         public string PictureUrl { get; set; }
 

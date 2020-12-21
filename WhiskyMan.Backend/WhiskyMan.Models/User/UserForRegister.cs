@@ -13,7 +13,6 @@ namespace WhiskyMan.Models.User
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public string PictureUrl { get; set; }
     }
 
     public class Validator_UserForRegister : AbstractValidator<UserForRegister>
