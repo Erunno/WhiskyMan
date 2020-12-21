@@ -1,3 +1,5 @@
+import { TopAlertComponent } from './components/overlying-alert/top-alert.component';
+import { OverlyingAlertService } from './services/overlying-alert/overlying-alert.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -6,13 +8,15 @@ import { RouterModule } from '@angular/router';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './services/auth/auth-http-iterceptor';
 import { OverlayingSpinerComponent } from './components/overlaying-spiner/overlaying-spiner.component';
-import { TopAlertComponent } from './components/overlying-alert/top-alert.component';
+import { ValidationMessageComponent } from './components/validation-message/validation-message.component';
+import { OverlayingSpinnerService } from './services/overlaying-spiner/overlaying-spinner.service';
 
 @NgModule({
   declarations: [
     NavbarComponent,
     SidebarComponent,
     OverlayingSpinerComponent,
+    ValidationMessageComponent,
     TopAlertComponent
   ],
   imports: [
@@ -23,7 +27,8 @@ import { TopAlertComponent } from './components/overlying-alert/top-alert.compon
     NavbarComponent,
     SidebarComponent,
     OverlayingSpinerComponent,
-    TopAlertComponent
+    TopAlertComponent,
+    ValidationMessageComponent
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

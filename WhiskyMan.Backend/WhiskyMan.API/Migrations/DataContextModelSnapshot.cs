@@ -59,6 +59,8 @@ namespace WhiskyMan.API.Migrations
 
                     b.HasIndex("BottleDescriptionId");
 
+                    b.HasIndex("IsDrunk");
+
                     b.ToTable("Bottles");
                 });
 
@@ -71,19 +73,28 @@ namespace WhiskyMan.API.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("DescriptionText")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Distillery")
                         .IsRequired()
-                        .HasMaxLength(100)
+                        .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(100)
+                        .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PictureUrl")
                         .IsRequired()
-                        .HasMaxLength(300)
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Region")
+                        .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
                     b.Property<decimal>("Voltage")
@@ -127,6 +138,10 @@ namespace WhiskyMan.API.Migrations
 
                     b.HasIndex("BuyerId");
 
+                    b.HasIndex("CreationTime");
+
+                    b.HasIndex("IsPayed", "CreationTime");
+
                     b.ToTable("Transactions");
                 });
 
@@ -138,17 +153,17 @@ namespace WhiskyMan.API.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasMaxLength(100)
+                        .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasMaxLength(100)
+                        .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasMaxLength(100)
+                        .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
                     b.Property<byte[]>("PasswordHash")
@@ -158,13 +173,12 @@ namespace WhiskyMan.API.Migrations
                         .HasColumnType("BLOB");
 
                     b.Property<string>("PictureUrl")
-                        .IsRequired()
-                        .HasMaxLength(400)
+                        .HasMaxLength(500)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Username")
                         .IsRequired()
-                        .HasMaxLength(100)
+                        .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");

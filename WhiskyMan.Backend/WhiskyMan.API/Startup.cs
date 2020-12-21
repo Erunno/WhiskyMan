@@ -45,6 +45,7 @@ namespace WhiskyMan
             services.AddScoped<DataContext>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IDataContextWrapper, DataContextWrapper>();
+            services.AddScoped<IBottleDescriptionRepository, BottleDescriptionRepository>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).
                 AddJwtBearer(options =>

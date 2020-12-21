@@ -1,0 +1,67 @@
+<div class="row">
+
+  <div class="col-4 bottle-img-container">
+    <img [src]="imagePlaceHolderUrl" class="img-fluid" alt="whisky" *ngIf="!url.value">
+    <img [src]="url.value" class="img-fluid" alt="whisky" *ngIf="url.value">
+  </div>
+
+  <div class="col-8">
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+      <div class="row">
+        <div class="col-6">
+          <label for="name" class="label-for-required">Name</label>
+          <input id="name" formControlName="name" type="text" class="form-control" placeholder="Octomore 8.3">
+          <app-validation-message for="name" [in]="form"></app-validation-message>
+        </div>
+        <div class="col-6">
+          <label for="distillery" class="label-for-required">Distillery</label>
+          <input id="distillery" formControlName="distillery" type="text" class="form-control" placeholder="Bruichladdich">
+          <app-validation-message for="distillery" [in]="form"></app-validation-message>
+        </div>
+      </div>
+
+      <div class="row mt-2">
+        <div class="col-3">
+          <label for="voltage">Voltage</label>
+          <input id="voltage" formControlName="voltage" type="number" class="form-control" placeholder="59.3">
+          <app-validation-message for="voltage" [in]="form" [using]="errorMessages"></app-validation-message>
+        </div>
+        <div class="col-3">
+          <label for="age">Age</label>
+          <input id="age" formControlName="age" type="number" class="form-control" placeholder="8">
+          <app-validation-message for="age" [in]="form" [using]="errorMessages"></app-validation-message>
+        </div>
+        <div class="col-6">
+          <label for="region">Region</label>
+          <input id="region" formControlName="region" type="text" class="form-control" placeholder="Islay">
+          <app-validation-message for="region" [in]="form"></app-validation-message>
+        </div>
+      </div>
+
+      <div class="row mt-2">
+        <div class="col-12">
+          <label for="pictureUrl" class="label-for-required">Picture Url</label>
+          <input id="pictureUrl" formControlName="pictureUrl" type="text" class="form-control" placeholder="https://stolen-picture-of-octamore.org" #url>
+          <app-validation-message for="pictureUrl" [in]="form"></app-validation-message>
+        </div>
+      </div>
+
+      <div class="row mt-2">
+        <div class="col-12">
+          <label for="descriptionText" class="label-for-required">Brief description</label>
+          <textarea formControlName="descriptionText" id="descriptionText" rows="5" class="form-control" placeholder="Made from barley grown in a single field on Islay, Octomore 8.3 is one of Bruichladdich's 'super heavily peated' whiskies. ... The resulting five-year-old whisky is, unsurprisingly, an intensely peaty dram which develops flavours of dark chocolate, cherry and peach."></textarea>
+          <app-validation-message for="descriptionText" [in]="form"></app-validation-message>
+        </div>
+      </div>
+
+      <div class="row mt-2">
+        <div class="col-4">
+          <button type="submit" class="btn btn-success">Save bottle description</button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>

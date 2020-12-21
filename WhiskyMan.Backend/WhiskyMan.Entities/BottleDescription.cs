@@ -22,6 +22,11 @@ namespace WhiskyMan.Entities
         [Required]
         [MaxLength(EntitiesConfig.UrlLength)]
         public string PictureUrl { get; set; }
+        [Required]
+        [MaxLength(EntitiesConfig.DescriptionLength)]
+        public string DescriptionText { get; set; }
+        [MaxLength(EntitiesConfig.NameLength)]
+        public string Region { get; set; }
 
         public Collection<Bottle> Bottles { get; set; }
     }

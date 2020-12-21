@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 
 namespace WhiskyMan.Entities
 {
+    [Index(nameof(IsDrunk), IsUnique = false)]
     public record Bottle
     {
         [Key]

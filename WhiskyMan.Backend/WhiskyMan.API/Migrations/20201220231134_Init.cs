@@ -13,11 +13,13 @@ namespace WhiskyMan.API.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    Distillery = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    Distillery = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
                     Age = table.Column<int>(type: "INTEGER", nullable: false),
                     Voltage = table.Column<decimal>(type: "TEXT", nullable: false),
-                    PictureUrl = table.Column<string>(type: "TEXT", maxLength: 300, nullable: false)
+                    PictureUrl = table.Column<string>(type: "TEXT", maxLength: 500, nullable: false),
+                    DescriptionText = table.Column<string>(type: "TEXT", maxLength: 1000, nullable: false),
+                    Region = table.Column<string>(type: "TEXT", maxLength: 50, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -30,11 +32,11 @@ namespace WhiskyMan.API.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Username = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    FirstName = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    LastName = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    Email = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    PictureUrl = table.Column<string>(type: "TEXT", maxLength: 400, nullable: false),
+                    Username = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    FirstName = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    LastName = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    Email = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    PictureUrl = table.Column<string>(type: "TEXT", maxLength: 500, nullable: true),
                     PasswordSalt = table.Column<byte[]>(type: "BLOB", nullable: true),
                     PasswordHash = table.Column<byte[]>(type: "BLOB", nullable: true)
                 },
@@ -128,6 +130,11 @@ namespace WhiskyMan.API.Migrations
                 column: "BottleDescriptionId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Bottles_IsDrunk",
+                table: "Bottles",
+                column: "IsDrunk");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_BottleUser_OwnersId",
                 table: "BottleUser",
                 column: "OwnersId");
@@ -141,6 +148,16 @@ namespace WhiskyMan.API.Migrations
                 name: "IX_Transactions_BuyerId",
                 table: "Transactions",
                 column: "BuyerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Transactions_CreationTime",
+                table: "Transactions",
+                column: "CreationTime");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Transactions_IsPayed_CreationTime",
+                table: "Transactions",
+                columns: new[] { "IsPayed", "CreationTime" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_Email",

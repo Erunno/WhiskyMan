@@ -15,7 +15,7 @@ namespace WhiskyMan.Repositories.Interfaces
         IQueryable<BottleDescription> BottleDescriptions { get; }
         IQueryable<Transaction> Transactions { get; }
 
-        ValueTask<EntityEntry<TEntity>> AddEntityAsync<TEntity>(TEntity user) where TEntity : class;
+        ValueTask<EntityEntry<TEntity>> AddEntityAsync<TEntity>(TEntity entity) where TEntity : class;
         Task<int> SaveChangesAsync();
     }
 }
