@@ -25,7 +25,6 @@ export class AuthService {
     if (token) {
       const decodedToken: any = jwt_decode(token);
 
-      console.log(Date.now());
       if (decodedToken.exp < Date.now()) {
         this.loggedIn = true;
         this.loadUserView();

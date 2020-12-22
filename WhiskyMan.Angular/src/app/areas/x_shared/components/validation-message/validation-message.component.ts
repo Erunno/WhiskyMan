@@ -1,6 +1,5 @@
 import { ValidationMessageDictionary, ElementSpecificMessageDictionary } from './validation-message-dictionary';
 import { Component, Input, OnInit } from '@angular/core';
-import { NgbInputDatepicker } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
@@ -10,6 +9,12 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 export class ValidationMessageComponent implements OnInit {
 
+  constructor() { }
+
+  public get showErrMessages(): boolean {
+    return this.formControl.invalid && this.formControl.touched;
+  }
+
   @Input("using") public messages: ValidationMessageDictionary;
   @Input("for") public elementAccessor: string;
   @Input("in") public form: FormGroup;
@@ -17,7 +22,13 @@ export class ValidationMessageComponent implements OnInit {
   public formControl: FormControl;
   public errors: {[s: string]: boolean};
 
-  constructor() { }
+  private defaultMessages = {
+    required: 'field is required',
+    email: 'email has a wrong format',
+    max: 'value has to be smaller',
+    min: 'value has to be bigger'
+    // you may add more
+  };
 
   ngOnInit(): void {
     this.formControl = this.form.get(this.elementAccessor) as FormControl;
@@ -25,10 +36,6 @@ export class ValidationMessageComponent implements OnInit {
     if (!this.formControl) {
       console.error(`FormContorol '${this.elementAccessor}' does not exist in provided FormGroup`);
     }
-  }
-
-  public get showErrMessages(): boolean {
-    return this.formControl.invalid && this.formControl.touched;
   }
 
   public getErrorMsg(key: string): string {
@@ -44,7 +51,7 @@ export class ValidationMessageComponent implements OnInit {
     }
 
     // user provided dictionary for this error
-    const dictionary = <ElementSpecificMessageDictionary>this.messages[key];
+    const dictionary = this.messages[key] as ElementSpecificMessageDictionary;
     return this.getMessageFromDictionary(key, dictionary);
   }
 
@@ -65,9 +72,9 @@ export class ValidationMessageComponent implements OnInit {
     return this.getDefautFor(key);
   }
 
-  private getElementName() {
+  private getElementName(): string {
     const splitedElemName = this.elementAccessor.split('.');
-    return splitedElemName[splitedElemName.length - 1]
+    return splitedElemName[splitedElemName.length - 1];
   }
 
   private getDefautFor(key: string): string {
@@ -76,13 +83,5 @@ export class ValidationMessageComponent implements OnInit {
     }
 
     return key;
-  }
-
-  private defaultMessages = {
-    'required': 'field is required',
-    'email': 'email has a wrong format',
-    'max': 'value has to be smaller',
-    'min': 'value has to be bigger'
-    // you may add more
   }
 }

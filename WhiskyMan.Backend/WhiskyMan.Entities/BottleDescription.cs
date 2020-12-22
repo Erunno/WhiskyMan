@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
+using System.Collections.Generic;
 
 namespace WhiskyMan.Entities
 {
+    [Index(nameof(Active), nameof(Id), IsUnique = false)]
     public record BottleDescription
     {
         [Key]
@@ -27,7 +28,9 @@ namespace WhiskyMan.Entities
         public string DescriptionText { get; set; }
         [MaxLength(EntitiesConfig.NameLength)]
         public string Region { get; set; }
+        [Required]
+        public bool Active { get; set; }
 
-        public Collection<Bottle> Bottles { get; set; }
+        public ICollection<Bottle> Bottles { get; set; }
     }
 }

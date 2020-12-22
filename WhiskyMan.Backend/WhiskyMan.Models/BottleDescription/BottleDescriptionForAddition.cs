@@ -12,7 +12,7 @@ namespace WhiskyMan.Models.BottleDescription
     {
         public string Name { get; set; }
         public string Distillery { get; set; }
-        public int Age { get; set; }
+        public int? Age { get; set; }
         public decimal Voltage { get; set; }
         public string PictureUrl { get; set; }
         public string DescriptionText { get; set; }
@@ -28,7 +28,7 @@ namespace WhiskyMan.Models.BottleDescription
             RuleFor(x => x.Age).GreaterThanOrEqualTo(0);
             RuleFor(x => x.PictureUrl).NotNull().Length(2, EntitiesConfig.UrlLength);
             RuleFor(x => x.Region).Length(2, EntitiesConfig.NameLength);
-            RuleFor(x => x.Voltage).GreaterThanOrEqualTo(0).LessThanOrEqualTo(100);
+            RuleFor(x => x.Voltage).NotNull().GreaterThanOrEqualTo(0).LessThanOrEqualTo(100);
             RuleFor(x => x.DescriptionText).NotNull().Length(2, EntitiesConfig.DescriptionLength);
         }
     }

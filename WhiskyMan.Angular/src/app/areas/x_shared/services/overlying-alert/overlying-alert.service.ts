@@ -1,6 +1,7 @@
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { Alert } from '../../components/overlying-alert/alert';
+import { AlertType } from '../../components/overlying-alert/alert-type';
 
 @Injectable({
   providedIn: 'root'
@@ -25,5 +26,21 @@ export class OverlyingAlertService {
 
   public addAlert(alert: Alert) {
     this.alerts.push(alert);
+  }
+
+  public addSucces(message: string, surviveToNextPage?: boolean) {
+    this.addAlert({
+      message: message,
+      type: AlertType.Succes,
+      surviveToNextPage: surviveToNextPage
+    });
+  }
+
+  public addError(message: string, surviveToNextPage?: boolean) {
+    this.addAlert({
+      message: message,
+      type: AlertType.Error,
+      surviveToNextPage: surviveToNextPage
+    });
   }
 }

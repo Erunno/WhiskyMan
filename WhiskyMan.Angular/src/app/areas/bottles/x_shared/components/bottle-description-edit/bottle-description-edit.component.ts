@@ -3,6 +3,7 @@ import { ValidationMessageDictionary } from './../../../../x_shared/components/v
 import { BottleDescriptionForEdit } from './../../../x_models/bottle-description-for-edit';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Resources } from '../../../x_models/static-resources';
 
 @Component({
   selector: 'app-bottle-description-edit',
@@ -11,7 +12,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class BottleDescriptionEditComponent implements OnInit {
 
-  public imagePlaceHolderUrl = "https://i.pinimg.com/originals/ab/93/11/ab9311c67670d84b590be4ec4ccdc7d1.jpg";
+  public imagePlaceHolderUrl = Resources.bottleImgUrl;
 
   @Input() public bottleDesc: BottleDescriptionForEdit;
   @Output() public submitAndValidated: EventEmitter<BottleDescriptionForEdit> = new EventEmitter();
@@ -19,12 +20,12 @@ export class BottleDescriptionEditComponent implements OnInit {
   form: FormGroup;
 
   public errorMessages: ValidationMessageDictionary = {
-    'max': {
-      'voltage': 'voltage has to be smaller than or equal to 100'
+    max: {
+      voltage: 'voltage has to be smaller than or equal to 100'
     },
-    'min': {
-      'voltage': 'voltage has to be bigger than or equal to 0',
-      'age': 'age have to be positive number'
+    min: {
+      voltage: 'voltage has to be bigger than or equal to 0',
+      age: 'age have to be positive number'
     }
   };
 
@@ -33,19 +34,19 @@ export class BottleDescriptionEditComponent implements OnInit {
   ngOnInit(): void {
 
     this.form = new FormGroup({
-      'name': new FormControl(null, Validators.required),
-      'distillery': new FormControl(null, Validators.required),
-      'age': new FormControl(null, Validators.min(0)),
-      'voltage': new FormControl(null, [Validators.min(0), Validators.max(100)]),
-      'pictureUrl': new FormControl(null, Validators.required),
-      'descriptionText': new FormControl(null, Validators.required),
-      'region': new FormControl(null),
+      name: new FormControl(null, Validators.required),
+      distillery: new FormControl(null, Validators.required),
+      age: new FormControl(null, Validators.min(0)),
+      voltage: new FormControl(null, [Validators.required, Validators.min(0), Validators.max(100)]),
+      pictureUrl: new FormControl(null, Validators.required),
+      descriptionText: new FormControl(null, Validators.required),
+      region: new FormControl(null),
     });
 
   }
 
   public onSubmit(): void {
-    if(this.form.valid) {
+    if (this.form.valid) {
       this.submitAndValidated.emit(this.form.value);
     }
     else {

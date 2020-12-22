@@ -13,6 +13,9 @@ import { BottleViewCardComponent } from './x_shared/components/bottle-view-card/
 import { BottlesListComponent } from './x_shared/components/bottles-list/bottles-list.component';
 import { BottleDescriptionEditComponent } from './x_shared/components/bottle-description-edit/bottle-description-edit.component';
 import { BottleDescriptionDetailComponent } from './bottle-description-detail/bottle-description-detail.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { BottleEditComponent } from './x_shared/components/bottle-edit/bottle-edit.component';
+import { BottleDetailComponent } from './bottle-detail/bottle-detail.component';
 
 @NgModule({
   declarations: [
@@ -24,14 +27,17 @@ import { BottleDescriptionDetailComponent } from './bottle-description-detail/bo
     BottleViewCardComponent,
     BottlesListComponent,
     BottleDescriptionEditComponent,
-    BottleDescriptionDetailComponent
+    BottleDescriptionDetailComponent,
+    BottleEditComponent,
+    BottleDetailComponent
   ],
   imports: [
     CommonModule,
     BottlesRoutingModule,
     SharedModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgSelectModule
   ],
   exports: [
     BottlesRoutingModule

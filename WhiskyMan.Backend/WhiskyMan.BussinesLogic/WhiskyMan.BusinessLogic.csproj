@@ -16,4 +16,8 @@
     <ProjectReference Include="..\WhiskyMan.Repositories.Interfaces\WhiskyMan.Repositories.Interfaces.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Bottle\" />
+  </ItemGroup>
+
 </Project>

@@ -4,7 +4,6 @@ import { BottleDescriptionForEdit } from './../x_models/bottle-description-for-e
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { OverlayingSpinnerService } from '../../x_shared/services/overlaying-spiner/overlaying-spinner.service';
-import { AlertType } from '../../x_shared/components/overlying-alert/alert-type';
 
 @Component({
   selector: 'app-add-description',
@@ -23,20 +22,17 @@ export class AddDescriptionComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  private alertAdded = false;
-
-  onSubmit(description: BottleDescriptionForEdit) {
+  onSubmit(description: BottleDescriptionForEdit): void {
+    console.log(description);
     this.spinnerService.showSpinner();
     this.descriptioService.addBottleDescription(description)
       .subscribe(response => {
-
-        this.alertService.addAlert({
-          message: "Bottle description successfully added",
-          type: AlertType.Succes,
-          surviveToNextPage: true
-        });
-
-        this.router.navigate(['bottles', 'description-detail', response.descriptionId])
-      })
+        this.alertService.addSucces('Bottle description successfully added', true);
+        this.router.navigate(['bottles', 'description-detail', response.descriptionId]);
+      },
+      err => {
+        this.spinnerService.hideSpiner();
+        this.alertService.addError(`Unable to create bottle description (error: ${err.error})`);
+      });
   }
 }

@@ -1,3 +1,31 @@
+
+/*customization of ng-select library*/
+@import "~@ng-select/ng-select/themes/ant.design.theme.css";
+
+ng-select div.ng-select-container {
+  height: 36px;
+  font: 400 13.3333px Arial;
+}
+
+span.ng-value-label{
+ font: 400 13.3333px Arial;
+}
+
+ng-select[ng-reflect-multiple="true"].ng-select.ng-select-multiple
+  div.ng-select-container div.ng-value-container div.ng-placeholder {
+  margin-top: -8px;
+}
+ng-select[ng-reflect-multiple="false"].ng-select
+  div.ng-select-container div.ng-value-container div.ng-placeholder {
+  margin-top: 1px;
+}
+
+span.ng-clear-wrapper {
+  visibility: hidden;
+}
+
+
+/*side bar*/
 div.next-to-sidenav {
   padding-left: 0px;
   -webkit-transition: padding-left .25s ease-out;
@@ -13,7 +41,8 @@ div.next-to-sidenav {
 
 /*invalid inputs*/
 input.ng-invalid.ng-touched,
-textarea.ng-invalid.ng-touched {
+textarea.ng-invalid.ng-touched,
+ng-select.ng-invalid.ng-touched div.ng-select-container {
   border: 1px solid red;
 }
 

@@ -5,4 +5,5 @@ export class BottleDescriptionForEdit {
   voltage: number;
   pictureUrl: string;
   descriptionText: string;
+  region: string;
 }

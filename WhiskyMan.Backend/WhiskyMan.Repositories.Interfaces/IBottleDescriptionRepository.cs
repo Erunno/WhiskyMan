@@ -9,5 +9,6 @@ namespace WhiskyMan.Repositories.Interfaces
     public interface IBottleDescriptionRepository
     {
         Task<int> AddBottleDescription(BottleDescriptionForAddition bottleDescription);
+        Task<List<BottleDescriptionReference>> GetActiveBottleDescriptionsReferences();
     }
 }

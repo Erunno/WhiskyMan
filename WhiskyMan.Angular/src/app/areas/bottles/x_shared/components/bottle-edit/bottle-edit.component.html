@@ -1,0 +1,73 @@
+<div class="row">
+
+  <div class="col-8">
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+      <div class="row">
+
+        <div class="col-5">
+          <label for="description" class="label-for-required">Bottle</label>
+          <ng-select
+            id="description"
+            [items]="descriptionReferences"
+            bindLabel="name"
+            placeholder="Octamore 8.3 - Bruichladdich"
+            formControlName="description"
+            [multiple]="false">
+          </ng-select>
+          <app-validation-message for="description" [in]="form" [using]="errorMessages"></app-validation-message>
+        </div>
+
+        <div class="col-7">
+          <label for="owners" class="label-for-required">Owners</label>
+          <ng-select
+            id="owners"
+            [items]="userReferences"
+            bindLabel="name"
+            placeholder="Zdibřich Novák"
+            formControlName="owners"
+            [multiple]="true">
+          </ng-select>
+          <app-validation-message for="owners" [in]="form" [using]="errorMessages"></app-validation-message>
+        </div>
+      </div>
+
+      <div class="row mt-2">
+        <div class="col-3">
+          <label for="amount" class="label-for-required">Amount (ml)</label>
+          <input id="amount" formControlName="amount_ml" type="text" class="form-control" placeholder="700">
+          <app-validation-message for="amount_ml" [in]="form" [using]="errorMessages"></app-validation-message>
+        </div>
+        <div class="col-3">
+          <label for="bottlePrice" class="label-for-required">Price</label>
+          <input id="bottlePrice" formControlName="bottlePrice" type="number" class="form-control" placeholder="3500">
+          <app-validation-message for="bottlePrice" [in]="form" [using]="errorMessages"></app-validation-message>
+        </div>
+        <div class="col-3">
+          <label for="shotPrice" class="label-for-required">Shot price</label>
+          <input id="shotPrice" formControlName="shotPrice" type="text" class="form-control" placeholder="120">
+          <app-validation-message for="shotPrice" [in]="form" [using]="errorMessages"></app-validation-message>
+        </div>
+        <div class="col-3">
+          <label for="wastePercent" class="label-for-required">Expected waste (%)</label>
+          <input id="wastePercent" formControlName="wastePercent" type="number" class="form-control" placeholder="15" value="15">
+          <app-validation-message for="wastePercent" [in]="form" [using]="errorMessages"></app-validation-message>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col-3">
+          <button type="submit" class="btn btn-success">Save bottle</button>
+        </div>
+      </div>
+    </form>
+
+  </div>
+
+  <div class="col-4 bottle-img-container">
+    <img [src]="imagePlaceHolderUrl" class="img-fluid" alt="whisky" *ngIf="!descriptionUrl">
+    <img [src]="descriptionUrl" class="img-fluid" alt="whisky" *ngIf="descriptionUrl">
+  </div>
+
+</div>

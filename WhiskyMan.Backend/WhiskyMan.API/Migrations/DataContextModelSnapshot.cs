@@ -16,21 +16,6 @@ namespace WhiskyMan.API.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "5.0.1");
 
-            modelBuilder.Entity("BottleUser", b =>
-                {
-                    b.Property<int>("BottlesId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("OwnersId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("BottlesId", "OwnersId");
-
-                    b.HasIndex("OwnersId");
-
-                    b.ToTable("BottleUser");
-                });
-
             modelBuilder.Entity("WhiskyMan.Entities.Bottle", b =>
                 {
                     b.Property<int>("Id")
@@ -52,7 +37,7 @@ namespace WhiskyMan.API.Migrations
                     b.Property<decimal>("ShotPrice")
                         .HasColumnType("TEXT");
 
-                    b.Property<bool>("WastePercent")
+                    b.Property<int>("WastePercent")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
@@ -68,6 +53,9 @@ namespace WhiskyMan.API.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("Active")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("Age")
@@ -102,7 +90,24 @@ namespace WhiskyMan.API.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Active", "Id");
+
                     b.ToTable("BottleDescriptions");
+                });
+
+            modelBuilder.Entity("WhiskyMan.Entities.Ownership", b =>
+                {
+                    b.Property<int>("BottleId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("OwnerId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("BottleId", "OwnerId");
+
+                    b.HasIndex("OwnerId");
+
+                    b.ToTable("Ownership");
                 });
 
             modelBuilder.Entity("WhiskyMan.Entities.Transaction", b =>
@@ -151,6 +156,9 @@ namespace WhiskyMan.API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<bool>("Active")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -189,22 +197,9 @@ namespace WhiskyMan.API.Migrations
                     b.HasIndex("Username")
                         .IsUnique();
 
+                    b.HasIndex("Active", "Id");
+
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("BottleUser", b =>
-                {
-                    b.HasOne("WhiskyMan.Entities.Bottle", null)
-                        .WithMany()
-                        .HasForeignKey("BottlesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WhiskyMan.Entities.User", null)
-                        .WithMany()
-                        .HasForeignKey("OwnersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("WhiskyMan.Entities.Bottle", b =>
@@ -216,6 +211,25 @@ namespace WhiskyMan.API.Migrations
                         .IsRequired();
 
                     b.Navigation("BottleDescription");
+                });
+
+            modelBuilder.Entity("WhiskyMan.Entities.Ownership", b =>
+                {
+                    b.HasOne("WhiskyMan.Entities.Bottle", "Bottle")
+                        .WithMany("Ownerships")
+                        .HasForeignKey("BottleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WhiskyMan.Entities.User", "Owner")
+                        .WithMany("Ownerships")
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Bottle");
+
+                    b.Navigation("Owner");
                 });
 
             modelBuilder.Entity("WhiskyMan.Entities.Transaction", b =>
@@ -239,6 +253,8 @@ namespace WhiskyMan.API.Migrations
 
             modelBuilder.Entity("WhiskyMan.Entities.Bottle", b =>
                 {
+                    b.Navigation("Ownerships");
+
                     b.Navigation("Transactions");
                 });
 
@@ -249,6 +265,8 @@ namespace WhiskyMan.API.Migrations
 
             modelBuilder.Entity("WhiskyMan.Entities.User", b =>
                 {
+                    b.Navigation("Ownerships");
+
                     b.Navigation("Transactions");
                 });
 #pragma warning restore 612, 618

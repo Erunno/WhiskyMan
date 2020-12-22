@@ -44,6 +44,7 @@ namespace WhiskyMan
             services.AddScoped<AuthService>();
             services.AddScoped<DataContext>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IBottleRepository, BottleRepository>();
             services.AddScoped<IDataContextWrapper, DataContextWrapper>();
             services.AddScoped<IBottleDescriptionRepository, BottleDescriptionRepository>();
 

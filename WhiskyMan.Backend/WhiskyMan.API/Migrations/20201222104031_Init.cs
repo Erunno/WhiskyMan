@@ -19,7 +19,8 @@ namespace WhiskyMan.API.Migrations
                     Voltage = table.Column<decimal>(type: "TEXT", nullable: false),
                     PictureUrl = table.Column<string>(type: "TEXT", maxLength: 500, nullable: false),
                     DescriptionText = table.Column<string>(type: "TEXT", maxLength: 1000, nullable: false),
-                    Region = table.Column<string>(type: "TEXT", maxLength: 50, nullable: true)
+                    Region = table.Column<string>(type: "TEXT", maxLength: 50, nullable: true),
+                    Active = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -37,6 +38,7 @@ namespace WhiskyMan.API.Migrations
                     LastName = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
                     Email = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
                     PictureUrl = table.Column<string>(type: "TEXT", maxLength: 500, nullable: true),
+                    Active = table.Column<bool>(type: "INTEGER", nullable: false),
                     PasswordSalt = table.Column<byte[]>(type: "BLOB", nullable: true),
                     PasswordHash = table.Column<byte[]>(type: "BLOB", nullable: true)
                 },
@@ -56,7 +58,7 @@ namespace WhiskyMan.API.Migrations
                     ShotPrice = table.Column<decimal>(type: "TEXT", nullable: false),
                     BottlePrice = table.Column<decimal>(type: "TEXT", nullable: false),
                     IsDrunk = table.Column<bool>(type: "INTEGER", nullable: false),
-                    WastePercent = table.Column<bool>(type: "INTEGER", nullable: false)
+                    WastePercent = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -70,24 +72,24 @@ namespace WhiskyMan.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BottleUser",
+                name: "Ownership",
                 columns: table => new
                 {
-                    BottlesId = table.Column<int>(type: "INTEGER", nullable: false),
-                    OwnersId = table.Column<int>(type: "INTEGER", nullable: false)
+                    OwnerId = table.Column<int>(type: "INTEGER", nullable: false),
+                    BottleId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BottleUser", x => new { x.BottlesId, x.OwnersId });
+                    table.PrimaryKey("PK_Ownership", x => new { x.BottleId, x.OwnerId });
                     table.ForeignKey(
-                        name: "FK_BottleUser_Bottles_BottlesId",
-                        column: x => x.BottlesId,
+                        name: "FK_Ownership_Bottles_BottleId",
+                        column: x => x.BottleId,
                         principalTable: "Bottles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_BottleUser_Users_OwnersId",
-                        column: x => x.OwnersId,
+                        name: "FK_Ownership_Users_OwnerId",
+                        column: x => x.OwnerId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -125,6 +127,11 @@ namespace WhiskyMan.API.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_BottleDescriptions_Active_Id",
+                table: "BottleDescriptions",
+                columns: new[] { "Active", "Id" });
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Bottles_BottleDescriptionId",
                 table: "Bottles",
                 column: "BottleDescriptionId");
@@ -135,9 +142,9 @@ namespace WhiskyMan.API.Migrations
                 column: "IsDrunk");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BottleUser_OwnersId",
-                table: "BottleUser",
-                column: "OwnersId");
+                name: "IX_Ownership_OwnerId",
+                table: "Ownership",
+                column: "OwnerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Transactions_BottleId",
@@ -160,6 +167,11 @@ namespace WhiskyMan.API.Migrations
                 columns: new[] { "IsPayed", "CreationTime" });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Users_Active_Id",
+                table: "Users",
+                columns: new[] { "Active", "Id" });
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Users_Email",
                 table: "Users",
                 column: "Email",
@@ -175,7 +187,7 @@ namespace WhiskyMan.API.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "BottleUser");
+                name: "Ownership");
 
             migrationBuilder.DropTable(
                 name: "Transactions");

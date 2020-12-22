@@ -29,6 +29,13 @@ namespace WhiskyMan.Repositories.Tests.Mapping
                 );
 
         [Test]
+        public void User_UserReference()
+            => TestMapping<User, UserReference>(
+                input: GetUserEntityWithNoCollections(),
+                expected: GetUserReference()
+                );
+
+        [Test]
         public void User_ForAuthModel()
             => TestMapping<User, UserForAuthModel>(
                 input: GetUserEntityWithNoCollections(),
@@ -71,6 +78,7 @@ namespace WhiskyMan.Repositories.Tests.Mapping
                 LastName = "Smith",
                 Email = "zdibrich@email.cz",
                 PictureUrl = "url.com",
+                Active = true
             };
         
         private UserForAuthModel GetUserForAuthModel()
@@ -112,6 +120,13 @@ namespace WhiskyMan.Repositories.Tests.Mapping
                 Id = 1,
                 FullName = "Zdibrich Smith",
                 PictureUrl = "url.com"
+            };
+
+        private UserReference GetUserReference()
+            => new UserReference
+            {
+                Id = 1,
+                Name = "Zdibrich Smith",
             };
     }
 }
