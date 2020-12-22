@@ -22,3 +22,19 @@ label.label-for-required::after {
   content: "*";
   color: blue;
 }
+
+/*pointer*/
+.pointer {
+  cursor: pointer;
+}
+
+/*checkmark*/
+.checkmark {
+  display: inline-block;
+  transform: rotate(45deg);
+  height: 25px;
+  width: 12px;
+  margin-left: 60%;
+  border-bottom: 3px solid #78b13f;
+  border-right: 3px solid #78b13f;
+}
