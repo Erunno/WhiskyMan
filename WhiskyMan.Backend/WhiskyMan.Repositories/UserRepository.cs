@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using WhiskyMan.Entities;
 using WhiskyMan.Models.User;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper.QueryableExtensions;
 
 namespace WhiskyMan.Repositories.Interfaces
 {
@@ -29,6 +30,12 @@ namespace WhiskyMan.Repositories.Interfaces
             await context.SaveChangesAsync();
             return entityEntry != null ? mapper.Map<UserModel>(entityEntry.Entity) : null;
         }
+
+        public Task<List<UserReference>> GetActiveUserReferences()
+            => context.Users
+                .Where(user => user.Active)
+                .ProjectTo<UserReference>(mapper.ConfigurationProvider)
+                .ToListAsync();
 
         public async Task<UserModel> GetUser(int userId)
         {

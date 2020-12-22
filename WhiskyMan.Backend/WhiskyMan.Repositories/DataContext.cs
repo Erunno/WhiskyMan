@@ -12,6 +12,17 @@ namespace WhiskyMan.Repositories
         {
         }
 
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<User>()
+                .HasMany(u => u.Bottles)
+                .WithMany(b => b.Owners)
+                .UsingEntity<Ownership>(
+                    o => o.HasOne(o => o.Bottle).WithMany(u => u.Ownerships),
+                    o => o.HasOne(o => o.Owner).WithMany(b => b.Ownerships)
+                );
+        }
+
         public DbSet<User> Users { get; set; }
         public DbSet<Bottle> Bottles { get; set; }
         public DbSet<BottleDescription> BottleDescriptions { get; set; }

@@ -1,3 +1,4 @@
+import { BottleDetailComponent } from './bottle-detail/bottle-detail.component';
 import { BottleDescriptionDetailComponent } from './bottle-description-detail/bottle-description-detail.component';
 import { AddDescriptionComponent } from './add-description/add-description.component';
 import { MyListComponent } from './my-list/my-list.component';
@@ -15,6 +16,7 @@ const routes: Routes = [
       { path: 'add-description', component: AddDescriptionComponent },
       { path: 'add-bottle', component: AddBottleComponent },
       { path: 'description-detail/:id', component: BottleDescriptionDetailComponent },
+      { path: 'bottle-detail/:id', component: BottleDetailComponent },
     ]
   }
 ];

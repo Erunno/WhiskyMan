@@ -22,6 +22,13 @@ namespace WhiskyMan.Repositories.Tests.Mapping
                 nameof(BottleDescription.Bottles)
                 );
 
+        [Test]
+        public void BottleDescription_BottleDescriptionReference()
+            => TestMapping<BottleDescription, BottleDescriptionReference>(
+                GetBottleDescription(),
+                GetBottleDescriptionReference()
+                );
+
         private BottleDescription GetBottleDescription()
             => new BottleDescription
             {
@@ -32,7 +39,8 @@ namespace WhiskyMan.Repositories.Tests.Mapping
                 DescriptionText = "desc",
                 PictureUrl = "url.com",
                 Region = "reg",
-                Voltage = 40
+                Voltage = 40,
+                Active = true
             };
 
         private BottleDescriptionForAddition GetBottleDescriptionForAddition()
@@ -45,6 +53,14 @@ namespace WhiskyMan.Repositories.Tests.Mapping
                 PictureUrl = "url.com",
                 Region = "reg",
                 Voltage = 40
+            };
+
+        private BottleDescriptionReference GetBottleDescriptionReference()
+            => new BottleDescriptionReference
+            {
+                Id = 1,
+                Name = "Octa - Bruch",
+                PictureUrl = "url.com"
             };
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 
 namespace WhiskyMan.Entities
 {
@@ -24,9 +24,11 @@ namespace WhiskyMan.Entities
         [Required]
         public bool IsDrunk { get; set; }
         [Required]
-        public bool WastePercent { get; set; }
+        public int WastePercent { get; set; }
 
-        public Collection<User> Owners { get; set; }
-        public Collection<Transaction> Transactions { get; set; }
+        public ICollection<User> Owners { get; set; }
+        public ICollection<Ownership> Ownerships { get; set; }
+
+        public ICollection<Transaction> Transactions { get; set; }
     }
 }

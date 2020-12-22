@@ -23,6 +23,9 @@ namespace WhiskyMan.Repositories.Tests.Mapping
         }
 
         protected void TestMapping<TSource, TDestination>(TSource input, TDestination expected, params string[] exceptProperties)
+            => TestMapping(input, expected, additionalAssert: null, exceptProperties);
+
+        protected void TestMapping<TSource, TDestination>(TSource input, TDestination expected, Action<TDestination, TDestination> additionalAssert, params string[] exceptProperties)
         {
             // arrange
             var mapper = MapperProvider.GetMapper();
@@ -31,6 +34,9 @@ namespace WhiskyMan.Repositories.Tests.Mapping
             var actual = mapper.Map<TDestination>(input);
 
             // assert
+
+            additionalAssert?.Invoke(expected, actual);
+
             var propertiesToCheck =
                 typeof(TDestination)
                 .GetProperties()

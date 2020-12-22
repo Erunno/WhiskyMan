@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using WhiskyMan.Models.User;
 
@@ -11,5 +12,6 @@ namespace WhiskyMan.Repositories.Interfaces
         Task<UserModel> AddUser(UserForAuthModel user);
         Task<bool> UserExistsByUsername(string username);
         Task<UserView> GetUserView(string username);
+        Task<List<UserReference>> GetActiveUserReferences();
     }
 }

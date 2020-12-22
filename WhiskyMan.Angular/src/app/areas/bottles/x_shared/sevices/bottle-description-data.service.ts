@@ -1,3 +1,4 @@
+import { BottleDescriptionReference } from './../../x_models/bottle-description-reference';
 import { environment } from './../../../../../environments/environment.prod';
 import { BottleDescriptionForEdit } from './../../x_models/bottle-description-for-edit';
 import { HttpClient } from '@angular/common/http';
@@ -20,7 +21,6 @@ export class BottleDescriptionDataService {
   public addBottleDescription(
     description: BottleDescriptionForEdit
   ): Observable<{descriptionId: number}> {
-    return this.http.post<{descriptionId: number}>(this.baseAddr + 'add', description);
+    return this.http.post<{descriptionId: number}>(this.baseAddr + 'add-description', description);
   }
-
 }

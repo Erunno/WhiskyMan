@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,5 +33,11 @@ namespace WhiskyMan.Repositories
 
             return createdEntity.Entity.Id;
         }
+
+        public Task<List<BottleDescriptionReference>> GetActiveBottleDescriptionsReferences()
+            => dataContext.BottleDescriptions
+                .Where(des => des.Active)
+                .ProjectTo<BottleDescriptionReference>(mapper.ConfigurationProvider)
+                .ToListAsync();
     }
 }

@@ -23,5 +23,10 @@ namespace WhiskyMan.API.Controllers
         public async Task<IActionResult> GetUserView(int id) 
             => Ok(await repo.GetUserView(User.Identity.Name));
 
+        [Authorize]
+        [HttpGet("active-references")]
+        public async Task<IActionResult> GetUserReferences()
+            => Ok(await repo.GetActiveUserReferences());
+
     }
 }

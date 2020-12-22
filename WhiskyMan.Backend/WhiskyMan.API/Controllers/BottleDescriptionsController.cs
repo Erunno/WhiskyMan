@@ -22,12 +22,15 @@ namespace WhiskyMan.API.Controllers
         }
 
         [Authorize]
-        [HttpPost("add")]
+        [HttpPost("add-description")]
         public async Task<IActionResult> AddDescription(BottleDescriptionForAddition bottleDescription)
         {
             int id = await repo.AddBottleDescription(bottleDescription);
             return Ok(new { DescriptionId = id });
         }
 
+        [HttpGet("active-references")]
+        public async Task<IActionResult> GetActiveBottleDescriptionReferences()
+            => Ok(await repo.GetActiveBottleDescriptionsReferences());
     }
 }

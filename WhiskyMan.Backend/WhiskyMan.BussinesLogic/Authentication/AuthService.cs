@@ -8,7 +8,6 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using WhiskyMan.Models.User;
-using WhiskyMan.Models.User;
 using WhiskyMan.Repositories.Interfaces;
 
 namespace WhiskyMan.BusinessLogic.Authentication

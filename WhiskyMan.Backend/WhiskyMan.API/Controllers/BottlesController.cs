@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WhiskyMan.Models.Bottle;
+using WhiskyMan.Repositories.Interfaces;
 
 namespace WhiskyMan.API.Controllers
 {
@@ -10,6 +12,13 @@ namespace WhiskyMan.API.Controllers
     [Route("api/[controller]")]
     public class BottlesController : ControllerBase
     {
+        private readonly IBottleRepository repo;
+
+        public BottlesController(IBottleRepository repo)
+        {
+            this.repo = repo;
+        }
+
         [HttpGet("all-active")]
         public async Task<IActionResult> GetActiveBottlesForView()
         {
@@ -27,6 +36,13 @@ namespace WhiskyMan.API.Controllers
                 new {Id= 1, Name ="bottleName 1", Distillery = "distillery 1", ShotPrice = 45, PictureUrl = "https://bottlesandstories.cz/1245-large_default/glenfiddich-12-yo-07l-40.jpg" },
                 new {Id= 1, Name ="bottleName 1", Distillery = "distillery 1", ShotPrice = 45, PictureUrl = "https://bottlesandstories.cz/1245-large_default/glenfiddich-12-yo-07l-40.jpg" },
             });
-        } 
+        }
+
+        [HttpPost("add-bottle")]
+        public async Task<IActionResult> AddBottle(BottleForAddition bottle)
+            => Ok(new 
+            { 
+                BottleId = await repo.AddBottle(bottle)
+            });
     }
 }
