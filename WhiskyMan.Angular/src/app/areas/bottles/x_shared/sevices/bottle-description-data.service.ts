@@ -4,6 +4,7 @@ import { BottleDescriptionForEdit } from './../../x_models/bottle-description-fo
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { TagReference } from '../../x_models/tag-reference';
 
 @Injectable({
   providedIn: 'root'
@@ -22,5 +23,9 @@ export class BottleDescriptionDataService {
     description: BottleDescriptionForEdit
   ): Observable<{descriptionId: number}> {
     return this.http.post<{descriptionId: number}>(this.baseAddr + 'add-description', description);
+  }
+
+  public getActiveTags(): Observable<TagReference[]> {
+    return this.http.get<TagReference[]>(this.baseAddr + 'active-tags');
   }
 }

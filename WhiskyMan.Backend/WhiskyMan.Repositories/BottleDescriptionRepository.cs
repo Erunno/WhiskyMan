@@ -28,6 +28,10 @@ namespace WhiskyMan.Repositories
         public async Task<int> AddBottleDescription(BottleDescriptionForAddition bottleDescription)
         {
             var descriptionEntity = mapper.Map<BottleDescription>(bottleDescription);
+            descriptionEntity.Tags = await dataContext.Tags
+                .Where(tag => bottleDescription.TagIds.Contains(tag.Id))
+                .ToListAsync();
+
             var createdEntity = await dataContext.AddEntityAsync(descriptionEntity);
             await dataContext.SaveChangesAsync();
 
@@ -38,6 +42,12 @@ namespace WhiskyMan.Repositories
             => dataContext.BottleDescriptions
                 .Where(des => des.Active)
                 .ProjectTo<BottleDescriptionReference>(mapper.ConfigurationProvider)
+                .ToListAsync();
+
+        public Task<List<TagReference>> GetActiveTagReferences()
+            => dataContext.Tags
+                .Where(tag => tag.Active)
+                .ProjectTo<TagReference>(mapper.ConfigurationProvider)
                 .ToListAsync();
     }
 }

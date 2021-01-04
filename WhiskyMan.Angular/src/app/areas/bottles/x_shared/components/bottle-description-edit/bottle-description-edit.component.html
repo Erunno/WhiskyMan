@@ -50,6 +50,21 @@
 
       <div class="row mt-2">
         <div class="col-12">
+          <label for="tags">Tags</label>
+          <ng-select
+            id="tags"
+            [items]="tags"
+            bindLabel="name"
+            placeholder="smoky, cask strength ..."
+            formControlName="tags"
+            [multiple]="true">
+          </ng-select>
+          <app-validation-message for="tags" [in]="form"></app-validation-message>
+        </div>
+      </div>
+
+      <div class="row mt-2">
+        <div class="col-12">
           <label for="descriptionText" class="label-for-required">Brief description</label>
           <textarea formControlName="descriptionText" id="descriptionText" rows="5" class="form-control" placeholder="Made from barley grown in a single field on Islay, Octomore 8.3 is one of Bruichladdich's 'super heavily peated' whiskies. ... The resulting five-year-old whisky is, unsurprisingly, an intensely peaty dram which develops flavours of dark chocolate, cherry and peach."></textarea>
           <app-validation-message for="descriptionText" [in]="form"></app-validation-message>

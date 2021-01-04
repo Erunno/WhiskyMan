@@ -23,6 +23,7 @@ namespace WhiskyMan.Repositories
         public IQueryable<Bottle> Bottles => context.Bottles;
         public IQueryable<BottleDescription> BottleDescriptions => context.BottleDescriptions;
         public IQueryable<Transaction> Transactions => context.Transactions;
+        public IQueryable<Tag> Tags => context.Tags;
 
         public EntityEntry<TEntity> AddEntity<TEntity>(TEntity entity) where TEntity : class
             => context.Add(entity);

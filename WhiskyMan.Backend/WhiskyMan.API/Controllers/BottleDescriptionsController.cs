@@ -25,6 +25,8 @@ namespace WhiskyMan.API.Controllers
         [HttpPost("add-description")]
         public async Task<IActionResult> AddDescription(BottleDescriptionForAddition bottleDescription)
         {
+            bottleDescription.TagIds = bottleDescription.TagIds ?? new List<int>();
+
             int id = await repo.AddBottleDescription(bottleDescription);
             return Ok(new { DescriptionId = id });
         }
@@ -32,5 +34,9 @@ namespace WhiskyMan.API.Controllers
         [HttpGet("active-references")]
         public async Task<IActionResult> GetActiveBottleDescriptionReferences()
             => Ok(await repo.GetActiveBottleDescriptionsReferences());
+
+        [HttpGet("active-tags")]
+        public async Task<IActionResult> GetActiveTags()
+            => Ok(await repo.GetActiveTagReferences());
     }
 }

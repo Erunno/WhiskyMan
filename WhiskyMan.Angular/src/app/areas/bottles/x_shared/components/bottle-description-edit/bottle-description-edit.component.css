@@ -1,8 +1,10 @@
 div.bottle-img-container {
-  height: 446px;
+  height: 522px;
 }
 
 div.bottle-img-container img {
   height: 100%;
   object-fit: cover;
+  margin-left: auto;
+  margin-right: auto;
 }
