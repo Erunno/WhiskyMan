@@ -3,7 +3,12 @@
   <div class="card-body">
     <h5 class="card-title">{{ bottle.name }}</h5>
     <p class="card-text">{{ bottle.distillery }}</p>
-    <a href="#" class="btn btn-success">Buy</a>
-    <a [routerLink]="['../detail', bottle.id]" class="btn btn-primary">Detail</a>
+    <p class="card-text">
+      <span *ngFor="let tag of bottle.tags" class="badge badge-pill badge-success mr-1">
+        {{ tag }}
+      </span>
+    </p>
+    <a href="#" class="btn btn-outline-success">Buy</a>
+    <a [routerLink]="['../detail', bottle.id]" class="btn btn-outline-primary">Detail</a>
   </div>
 </div>

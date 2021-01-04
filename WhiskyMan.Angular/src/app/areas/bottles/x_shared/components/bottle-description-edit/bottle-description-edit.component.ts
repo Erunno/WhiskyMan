@@ -1,9 +1,12 @@
+import { OverlyingAlertService } from './../../../../x_shared/services/overlying-alert/overlying-alert.service';
+import { BottleDescriptionDataService } from './../../sevices/bottle-description-data.service';
 import { FormControlsHelper } from './../../../../x_shared/helpers/form-controls-helper';
 import { ValidationMessageDictionary } from './../../../../x_shared/components/validation-message/validation-message-dictionary';
 import { BottleDescriptionForEdit } from './../../../x_models/bottle-description-for-edit';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Resources } from '../../../x_models/static-resources';
+import { TagReference } from '../../../x_models/tag-reference';
 
 @Component({
   selector: 'app-bottle-description-edit',
@@ -18,6 +21,7 @@ export class BottleDescriptionEditComponent implements OnInit {
   @Output() public submitAndValidated: EventEmitter<BottleDescriptionForEdit> = new EventEmitter();
 
   form: FormGroup;
+  tags: TagReference[] = [];
 
   public errorMessages: ValidationMessageDictionary = {
     max: {
@@ -29,7 +33,10 @@ export class BottleDescriptionEditComponent implements OnInit {
     }
   };
 
-  constructor() { }
+  constructor(
+    private descriptionService: BottleDescriptionDataService,
+    private alertService: OverlyingAlertService
+  ) { }
 
   ngOnInit(): void {
 
@@ -41,13 +48,21 @@ export class BottleDescriptionEditComponent implements OnInit {
       pictureUrl: new FormControl(null, Validators.required),
       descriptionText: new FormControl(null, Validators.required),
       region: new FormControl(null),
+      tags: new FormControl(null)
     });
 
+    this.descriptionService.getActiveTags().subscribe(
+      data => this.tags = data,
+      err => this.alertService.addError(`Unable to load tags (error: ${err})`)
+    );
   }
 
   public onSubmit(): void {
     if (this.form.valid) {
-      this.submitAndValidated.emit(this.form.value);
+      const { tags, ...descForEdit } = this.form.value;
+      descForEdit.tagIds = tags.map(tagRef => tagRef.id);
+
+      this.submitAndValidated.emit(descForEdit);
     }
     else {
       FormControlsHelper.touchAllControls(this.form);

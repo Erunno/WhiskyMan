@@ -16,6 +16,21 @@ namespace WhiskyMan.API.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "5.0.1");
 
+            modelBuilder.Entity("BottleDescriptionTag", b =>
+                {
+                    b.Property<int>("BottleDescriptionsId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("TagsId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("BottleDescriptionsId", "TagsId");
+
+                    b.HasIndex("TagsId");
+
+                    b.ToTable("BottleDescriptionTag");
+                });
+
             modelBuilder.Entity("WhiskyMan.Entities.Bottle", b =>
                 {
                     b.Property<int>("Id")
@@ -110,6 +125,27 @@ namespace WhiskyMan.API.Migrations
                     b.ToTable("Ownership");
                 });
 
+            modelBuilder.Entity("WhiskyMan.Entities.Tag", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Active", "Id");
+
+                    b.ToTable("Tags");
+                });
+
             modelBuilder.Entity("WhiskyMan.Entities.Transaction", b =>
                 {
                     b.Property<int>("Id")
@@ -200,6 +236,21 @@ namespace WhiskyMan.API.Migrations
                     b.HasIndex("Active", "Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("BottleDescriptionTag", b =>
+                {
+                    b.HasOne("WhiskyMan.Entities.BottleDescription", null)
+                        .WithMany()
+                        .HasForeignKey("BottleDescriptionsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WhiskyMan.Entities.Tag", null)
+                        .WithMany()
+                        .HasForeignKey("TagsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("WhiskyMan.Entities.Bottle", b =>

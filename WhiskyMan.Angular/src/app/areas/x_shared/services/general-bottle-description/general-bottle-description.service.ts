@@ -18,7 +18,7 @@ export class GeneralBottleDescriptionService {
   private cachedDescriptions: Observable<BottleDescriptionReference[]>;
   public getDescriptionReferences(): Observable<BottleDescriptionReference[]> {
 
-    if(!this.cachedDescriptions) {
+    if (!this.cachedDescriptions) {
       this.cachedDescriptions = this.http.get<BottleDescriptionReference[]>(this.baseAddr + 'active-references');
     }
 

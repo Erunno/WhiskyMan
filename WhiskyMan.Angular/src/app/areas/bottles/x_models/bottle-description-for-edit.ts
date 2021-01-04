@@ -6,4 +6,5 @@ export class BottleDescriptionForEdit {
   pictureUrl: string;
   descriptionText: string;
   region: string;
+  tagIds: number[];
 }

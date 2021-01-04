@@ -21,6 +21,7 @@ namespace WhiskyMan.Repositories.Mapping
                 .ForMember(
                     dest => dest.Name,
                     opt => opt.MapFrom(des => $"{des.Name} - {des.Distillery}"));
+            mce.CreateMap<Tag, TagReference>();
         }
     }
 }

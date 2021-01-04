@@ -4,4 +4,5 @@ export interface BottleForView {
   distillery: string;
   shotPrice: number;
   pictureUrl: string;
+  tags: string[];
 }

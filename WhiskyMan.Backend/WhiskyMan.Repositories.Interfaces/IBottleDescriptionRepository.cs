@@ -10,5 +10,6 @@ namespace WhiskyMan.Repositories.Interfaces
     {
         Task<int> AddBottleDescription(BottleDescriptionForAddition bottleDescription);
         Task<List<BottleDescriptionReference>> GetActiveBottleDescriptionsReferences();
+        Task<List<TagReference>> GetActiveTagReferences();
     }
 }

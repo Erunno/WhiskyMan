@@ -27,6 +27,7 @@ namespace WhiskyMan.Repositories
         public DbSet<Bottle> Bottles { get; set; }
         public DbSet<BottleDescription> BottleDescriptions { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<Tag> Tags { get; set; }
 
         
     }

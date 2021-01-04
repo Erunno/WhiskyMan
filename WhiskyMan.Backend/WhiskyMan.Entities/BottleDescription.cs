@@ -32,5 +32,6 @@ namespace WhiskyMan.Entities
         public bool Active { get; set; }
 
         public ICollection<Bottle> Bottles { get; set; }
+        public ICollection<Tag> Tags { get; set; }
     }
 }

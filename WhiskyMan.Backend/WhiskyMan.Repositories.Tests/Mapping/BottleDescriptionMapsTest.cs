@@ -29,6 +29,13 @@ namespace WhiskyMan.Repositories.Tests.Mapping
                 GetBottleDescriptionReference()
                 );
 
+        [Test]
+        public void Tag_TagReference()
+            => TestMapping<Tag, TagReference>(
+                GetTag(),
+                GetTagReference()
+                );
+
         private BottleDescription GetBottleDescription()
             => new BottleDescription
             {
@@ -61,6 +68,20 @@ namespace WhiskyMan.Repositories.Tests.Mapping
                 Id = 1,
                 Name = "Octa - Bruch",
                 PictureUrl = "url.com"
+            };
+
+        private Tag GetTag()
+            => new Tag
+            {
+                Id = 2,
+                Name = "smoky"
+            };
+
+        private TagReference GetTagReference()
+            => new TagReference
+            {
+                Id = 2,
+                Name = "smoky"
             };
     }
 }

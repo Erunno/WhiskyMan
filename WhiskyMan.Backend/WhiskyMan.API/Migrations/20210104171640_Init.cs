@@ -28,6 +28,20 @@ namespace WhiskyMan.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Tags",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    Active = table.Column<bool>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tags", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -67,6 +81,30 @@ namespace WhiskyMan.API.Migrations
                         name: "FK_Bottles_BottleDescriptions_BottleDescriptionId",
                         column: x => x.BottleDescriptionId,
                         principalTable: "BottleDescriptions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "BottleDescriptionTag",
+                columns: table => new
+                {
+                    BottleDescriptionsId = table.Column<int>(type: "INTEGER", nullable: false),
+                    TagsId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BottleDescriptionTag", x => new { x.BottleDescriptionsId, x.TagsId });
+                    table.ForeignKey(
+                        name: "FK_BottleDescriptionTag_BottleDescriptions_BottleDescriptionsId",
+                        column: x => x.BottleDescriptionsId,
+                        principalTable: "BottleDescriptions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_BottleDescriptionTag_Tags_TagsId",
+                        column: x => x.TagsId,
+                        principalTable: "Tags",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -132,6 +170,11 @@ namespace WhiskyMan.API.Migrations
                 columns: new[] { "Active", "Id" });
 
             migrationBuilder.CreateIndex(
+                name: "IX_BottleDescriptionTag_TagsId",
+                table: "BottleDescriptionTag",
+                column: "TagsId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Bottles_BottleDescriptionId",
                 table: "Bottles",
                 column: "BottleDescriptionId");
@@ -145,6 +188,11 @@ namespace WhiskyMan.API.Migrations
                 name: "IX_Ownership_OwnerId",
                 table: "Ownership",
                 column: "OwnerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tags_Active_Id",
+                table: "Tags",
+                columns: new[] { "Active", "Id" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Transactions_BottleId",
@@ -187,10 +235,16 @@ namespace WhiskyMan.API.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "BottleDescriptionTag");
+
+            migrationBuilder.DropTable(
                 name: "Ownership");
 
             migrationBuilder.DropTable(
                 name: "Transactions");
+
+            migrationBuilder.DropTable(
+                name: "Tags");
 
             migrationBuilder.DropTable(
                 name: "Bottles");
