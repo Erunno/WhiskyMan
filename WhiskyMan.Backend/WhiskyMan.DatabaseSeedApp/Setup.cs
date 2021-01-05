@@ -11,10 +11,10 @@ namespace WhiskyMan.DatabaseSeedApp
 {
     class Setup
     {
-        public static DataContext GetSqliteDataContext()
+        public static DataContext GetSqliteDataContext(string pathToSqliteDb)
         {
             var builder = new DbContextOptionsBuilder();
-            builder.UseSqlite($"Data Source={Path.Combine("..", "..", "..", "..", "WhiskyMan.API", "whiskyMan.db")}");
+            builder.UseSqlite($"Data Source={pathToSqliteDb}");
 
             return new DataContext(builder.Options);
         }
