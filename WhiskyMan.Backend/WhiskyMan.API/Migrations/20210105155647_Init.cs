@@ -134,6 +134,31 @@ namespace WhiskyMan.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "SpecialPrices",
+                columns: table => new
+                {
+                    BottleId = table.Column<int>(type: "INTEGER", nullable: false),
+                    UserId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Price = table.Column<decimal>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SpecialPrices", x => new { x.BottleId, x.UserId });
+                    table.ForeignKey(
+                        name: "FK_SpecialPrices_Bottles_BottleId",
+                        column: x => x.BottleId,
+                        principalTable: "Bottles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SpecialPrices_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Transactions",
                 columns: table => new
                 {
@@ -145,7 +170,7 @@ namespace WhiskyMan.API.Migrations
                     Price = table.Column<decimal>(type: "TEXT", nullable: false),
                     CreationTime = table.Column<DateTime>(type: "TEXT", nullable: false),
                     IsPayed = table.Column<bool>(type: "INTEGER", nullable: false),
-                    PaymentTime = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    PaymentTime = table.Column<DateTime>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -188,6 +213,16 @@ namespace WhiskyMan.API.Migrations
                 name: "IX_Ownership_OwnerId",
                 table: "Ownership",
                 column: "OwnerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SpecialPrices_BottleId_UserId",
+                table: "SpecialPrices",
+                columns: new[] { "BottleId", "UserId" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SpecialPrices_UserId_BottleId",
+                table: "SpecialPrices",
+                columns: new[] { "UserId", "BottleId" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tags_Active_Id",
@@ -239,6 +274,9 @@ namespace WhiskyMan.API.Migrations
 
             migrationBuilder.DropTable(
                 name: "Ownership");
+
+            migrationBuilder.DropTable(
+                name: "SpecialPrices");
 
             migrationBuilder.DropTable(
                 name: "Transactions");

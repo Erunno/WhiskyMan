@@ -21,6 +21,8 @@ namespace WhiskyMan.Repositories
                     o => o.HasOne(o => o.Bottle).WithMany(u => u.Ownerships),
                     o => o.HasOne(o => o.Owner).WithMany(b => b.Ownerships)
                 );
+
+            builder.Entity<SpecialPrice>().HasKey(sp => new { sp.BottleId, sp.UserId });
         }
 
         public DbSet<User> Users { get; set; }
@@ -28,7 +30,6 @@ namespace WhiskyMan.Repositories
         public DbSet<BottleDescription> BottleDescriptions { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<Tag> Tags { get; set; }
-
-        
+        public DbSet<SpecialPrice> SpecialPrices { get; set; }
     }
 }

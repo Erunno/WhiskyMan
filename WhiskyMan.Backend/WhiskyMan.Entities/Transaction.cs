@@ -28,6 +28,6 @@ namespace WhiskyMan.Entities
         
         [Required]
         public bool IsPayed { get; set; }
-        public DateTime PaymentTime { get; set; }
+        public DateTime? PaymentTime { get; set; }
     }
 }
