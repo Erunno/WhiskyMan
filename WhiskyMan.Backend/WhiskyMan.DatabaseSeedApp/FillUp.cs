@@ -608,6 +608,10 @@ namespace WhiskyMan.DatabaseSeedApp
                 .AddRange(bottles.Values);
             Console.WriteLine("  ... bottles filled");
 
+            context.SpecialPrices
+                .AddRange(specialPrices);
+            Console.WriteLine("  ... special prices filled");
+
             context.Transactions
                 .AddRange(transactions);
             Console.WriteLine("  ... transactions filled");
