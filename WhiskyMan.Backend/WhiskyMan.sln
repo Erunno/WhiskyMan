@@ -25,7 +25,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhiskyMan.Repositories.Test
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhiskyMan.BusinessLogic.Tests", "WhiskyMan.BusinessLogic.Tests\WhiskyMan.BusinessLogic.Tests.csproj", "{0331D3BA-8439-48F1-98F9-F6C5C7F55E22}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhiskyMan.BusinessLogic.Interfaces", "WhiskyMan.BusinessLogic.Interfaces\WhiskyMan.BusinessLogic.Interfaces.csproj", "{0CE090BA-DA54-42FB-B6FB-5161D2371A1A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhiskyMan.BusinessLogic.Interfaces", "WhiskyMan.BusinessLogic.Interfaces\WhiskyMan.BusinessLogic.Interfaces.csproj", "{0CE090BA-DA54-42FB-B6FB-5161D2371A1A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhiskyMan.DatabaseSeedApp", "WhiskyMan.DatabaseSeedApp\WhiskyMan.DatabaseSeedApp.csproj", "{71D0E3CF-E92F-4099-A97C-950E0ADFB112}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data seed", "Data seed", "{F26354DD-3215-43A4-B7CF-59ACD40DEC57}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +73,10 @@ Global
 		{0CE090BA-DA54-42FB-B6FB-5161D2371A1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0CE090BA-DA54-42FB-B6FB-5161D2371A1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0CE090BA-DA54-42FB-B6FB-5161D2371A1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71D0E3CF-E92F-4099-A97C-950E0ADFB112}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71D0E3CF-E92F-4099-A97C-950E0ADFB112}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71D0E3CF-E92F-4099-A97C-950E0ADFB112}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71D0E3CF-E92F-4099-A97C-950E0ADFB112}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -83,6 +91,8 @@ Global
 		{F002D82B-6BA7-4A8F-BF7D-B8547124DCA1} = {B4862D81-52E3-46CE-A019-F604998E45D1}
 		{0331D3BA-8439-48F1-98F9-F6C5C7F55E22} = {B4862D81-52E3-46CE-A019-F604998E45D1}
 		{0CE090BA-DA54-42FB-B6FB-5161D2371A1A} = {278B5995-C923-4264-8F66-9E99342EA876}
+		{71D0E3CF-E92F-4099-A97C-950E0ADFB112} = {F26354DD-3215-43A4-B7CF-59ACD40DEC57}
+		{F26354DD-3215-43A4-B7CF-59ACD40DEC57} = {B4862D81-52E3-46CE-A019-F604998E45D1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1535E109-79E2-4B02-942C-E624FF9BA009}

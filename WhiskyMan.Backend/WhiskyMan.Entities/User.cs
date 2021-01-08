@@ -37,5 +37,6 @@ namespace WhiskyMan.Entities
         public ICollection<Ownership> Ownerships { get; set; }
 
         public ICollection<Transaction> Transactions { get; set; }
+        public ICollection<SpecialPrice> SpecialPrices { get; set; }
     }
 }
