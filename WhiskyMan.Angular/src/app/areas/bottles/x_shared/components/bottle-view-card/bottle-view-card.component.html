@@ -8,7 +8,12 @@
         {{ tag }}
       </span>
     </p>
-    <a href="#" class="btn btn-outline-success">Buy</a>
+    <p class="card-text">
+      <span *ngFor="let owner of bottle.owners" class="badge badge-pill badge-warning mr-1">
+        {{ owner }}
+      </span>
+    </p>
+    <a href="#" class="btn btn-outline-success">${{ bottle.shotPrice }}</a>
     <a [routerLink]="['../detail', bottle.id]" class="btn btn-outline-primary">Detail</a>
   </div>
 </div>

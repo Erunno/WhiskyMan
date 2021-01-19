@@ -5,4 +5,5 @@ export interface BottleForView {
   shotPrice: number;
   pictureUrl: string;
   tags: string[];
+  owners: string[];
 }

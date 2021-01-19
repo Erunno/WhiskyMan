@@ -10,7 +10,7 @@ namespace WhiskyMan.Repositories.Tests.Mapping
 {
     class MappingTest
     {
-        protected void TestMapping<TSource, TDestination>(TSource input, TDestination expected) 
+        protected TDestination TestMapping<TSource, TDestination>(TSource input, TDestination expected) 
         {
             // arrange
             var mapper = MapperProvider.GetMapper();
@@ -20,12 +20,16 @@ namespace WhiskyMan.Repositories.Tests.Mapping
 
             // assert
             Assert.AreEqual(expected, actual);
+
+
+            // return mapping
+            return actual;
         }
 
-        protected void TestMapping<TSource, TDestination>(TSource input, TDestination expected, params string[] exceptProperties)
+        protected TDestination TestMapping<TSource, TDestination>(TSource input, TDestination expected, params string[] exceptProperties)
             => TestMapping(input, expected, additionalAssert: null, exceptProperties);
 
-        protected void TestMapping<TSource, TDestination>(TSource input, TDestination expected, Action<TDestination, TDestination> additionalAssert, params string[] exceptProperties)
+        protected TDestination TestMapping<TSource, TDestination>(TSource input, TDestination expected, Action<TDestination, TDestination> additionalAssert, params string[] exceptProperties)
         {
             // arrange
             var mapper = MapperProvider.GetMapper();
@@ -45,6 +49,10 @@ namespace WhiskyMan.Repositories.Tests.Mapping
             foreach (var prop in propertiesToCheck)
                 Assert.AreEqual(prop.GetValue(expected), prop.GetValue(actual),
                     $"Unexpected value of property {typeof(TDestination).Name}.{prop.Name}");
+
+
+            // return mapping
+            return actual;
         }
     }
 }

@@ -10,5 +10,6 @@ namespace WhiskyMan.Repositories.Interfaces
     public interface IBottleRepository
     {
         Task<int> AddBottle(BottleForAddition bottle);
+        Task<List<BottleView>> GetActiveBottleViews();
     }
 }
