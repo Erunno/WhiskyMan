@@ -1,10 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using WhiskyMan.Entities;
+using WhiskyMan.Entities.Auth;
 using WhiskyMan.Repositories;
 
 namespace WhiskyMan.DatabaseSeedApp
@@ -17,6 +20,26 @@ namespace WhiskyMan.DatabaseSeedApp
             builder.UseSqlite($"Data Source={pathToSqliteDb}");
 
             return new DataContext(builder.Options);
+        }
+
+        public static UserManager<User> GetUserManager(DataContext context)
+        {
+            IServiceCollection services = new ServiceCollection();
+
+            services.AddSingleton(context);
+            services.AddIdentityCore<User>(opt =>
+            {
+                opt.Password.RequireNonAlphanumeric = false;
+            })
+                .AddRoles<Role>()
+                .AddRoleManager<RoleManager<Role>>()
+                .AddSignInManager<SignInManager<User>>()
+                .AddRoleValidator<RoleValidator<Role>>()
+                .AddEntityFrameworkStores<DataContext>();
+
+            var serviceProvider = services.BuildServiceProvider();
+
+            return serviceProvider.GetService<UserManager<User>>();
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -9,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WhiskyMan.Models.User;
 using WhiskyMan.Repositories.Interfaces;
+using WhiskyMan.Repositories.Interfaces.Wrappers;
 
 namespace WhiskyMan.BusinessLogic.Authentication
 {
@@ -16,79 +18,48 @@ namespace WhiskyMan.BusinessLogic.Authentication
     {
         private readonly IUserRepository repo;
         private readonly IConfiguration config;
+        private readonly ISignInManagerWrapper signInManager;
         private readonly IMapper mapper;
 
         public AuthService(
             IUserRepository repo,
             IConfiguration config,
+            ISignInManagerWrapper signInManager,
             IMapper mapper)
         {
             this.repo = repo;
             this.config = config;
+            this.signInManager = signInManager;
             this.mapper = mapper;
         }
 
-
-        public async Task<UserModel> Login(string username, string password)
+        /// <summary>
+        /// Checks username-password combination and return token if input is correct null otherwise.
+        /// </summary>
+        public async Task<SecurityToken> GetTokenFor(UserForLogin userForLogin, int validDays)
         {
-            var user = await repo.GetUserForAuth(username);
+            var result = await signInManager.CheckPasswordSignInAsync(
+                userForLogin.UserName,
+                userForLogin.Password,
+                lockoutOnFailure: false);
 
-            if (user == null) return null;
-
-            if (!VerifyPassword(password, user))
+            if (!result.Succeeded)
                 return null;
 
-            return await repo.GetUser(user.Id);
+            return await GenerateToken(userForLogin.UserName, validDays);
         }
 
-        private bool VerifyPassword(string password, UserForAuthModel user)
+        public Task<IdentityResult> Register(UserForRegister userForRegister)
+            => repo.AddUser(userForRegister);
+
+        private async Task<SecurityToken> GenerateToken(string username, int validDays)
         {
-            using (var hmac = new HMACSHA512(user.PasswordSalt))
-            {
-                var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
-                var computedHashString = Encoding.UTF8.GetString(computedHash);
-
-                if (user.PasswordHash.Length != computedHash.Length)
-                    return false;
-
-                for (int i = 0; i < computedHash.Length; i++)
-                    if (computedHash[i] != user.PasswordHash[i])
-                        return false;
-
-                return true;
-            }
-        }
-
-        public Task<UserModel> Register(UserForRegister userDto)
-        {
-            var user = mapper.Map<UserForAuthModel>(userDto);
-
-            byte[] passwdHash, passwdSalt;
-            CreatePasswordHash(userDto.Password, out passwdHash, out passwdSalt);
-
-            user.PasswordHash = passwdHash;
-            user.PasswordSalt = passwdSalt;
-
-            return repo.AddUser(user);
-        }
-
-        private void CreatePasswordHash(string password, out byte[] passwdHash, out byte[] passwdSalt)
-        {
-            using (var hmac = new System.Security.Cryptography.HMACSHA512())
-            {
-                passwdSalt = hmac.Key;
-                passwdHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-            }
-        }
-
-        public async Task<SecurityToken> GenerateToken(int userId, int validDays)
-        {
-            var user = await repo.GetUser(userId);
+            var user = await repo.GetUser(username);
 
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.Username)
+                new Claim(ClaimTypes.Name, user.UserName)
             };
 
             var key = new SymmetricSecurityKey(

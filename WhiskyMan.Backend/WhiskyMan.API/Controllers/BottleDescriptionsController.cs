@@ -25,9 +25,9 @@ namespace WhiskyMan.API.Controllers
         [HttpPost("add-description")]
         public async Task<IActionResult> AddDescription(BottleDescriptionForAddition bottleDescription)
         {
-            bottleDescription.TagIds = bottleDescription.TagIds ?? new List<int>();
+            bottleDescription.TagIds = bottleDescription.TagIds ?? new List<long>();
 
-            int id = await repo.AddBottleDescription(bottleDescription);
+            long id = await repo.AddBottleDescription(bottleDescription);
             return Ok(new { DescriptionId = id });
         }
 

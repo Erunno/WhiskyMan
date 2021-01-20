@@ -8,7 +8,7 @@ namespace WhiskyMan.Models.User
 {
     public record UserForRegister
     {
-        public string Username { get; set; }
+        public string UserName { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
@@ -20,7 +20,7 @@ namespace WhiskyMan.Models.User
     {
         public Validator_UserForRegister()
         {
-            RuleFor(x => x.Username).NotNull().Length(3, EntitiesConfig.NameLength);
+            RuleFor(x => x.UserName).NotNull().Length(3, EntitiesConfig.NameLength);
             RuleFor(x => x.FirstName).NotNull().Length(2, EntitiesConfig.NameLength);
             RuleFor(x => x.LastName).NotNull().Length(2, EntitiesConfig.NameLength);
             RuleFor(x => x.Email).NotNull().EmailAddress().Length(3, EntitiesConfig.EmailLength);

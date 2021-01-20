@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WhiskyMan.Entities;
+using WhiskyMan.Entities.Auth;
 using WhiskyMan.Repositories;
 
 namespace WhiskyMan.DatabaseSeedApp
@@ -11,13 +13,15 @@ namespace WhiskyMan.DatabaseSeedApp
     class FillUp
     {
 
-        public static void Run(DataContext context)
+        public static void Run(DataContext context, UserManager<User> userManager)
         {
+            var passwd = "Passwd001";
+
+            #region Roles
+
+            #endregion
+
             #region Users
-
-            // password is "passwd"
-            // secret on server is "super ultra secure key"
-
             var users = new Dictionary<string, User>
             {
                 {
@@ -25,14 +29,12 @@ namespace WhiskyMan.DatabaseSeedApp
                     new User
                     {
                         Id = 1,
-                        Username = "admin",
+                        UserName = "admin",
                         Email = "admin@email.com",
                         FirstName = "Admin",
                         LastName = "Adminovski",
                         Active = true,
                         PictureUrl = GetPictureUrl(),
-                        PasswordHash = GetPasswordHash(),
-                        PasswordSalt = GetPasswordSalt()
                     }
                 },
                 {
@@ -40,14 +42,12 @@ namespace WhiskyMan.DatabaseSeedApp
                     new User
                     {
                         Id = 2,
-                        Username = "first_regular",
+                        UserName = "first_regular",
                         Email = "first_regular@email.com",
                         FirstName = "First",
                         LastName = "Firtovski",
                         Active = true,
                         PictureUrl = GetPictureUrl(),
-                        PasswordHash = GetPasswordHash(),
-                        PasswordSalt = GetPasswordSalt()
                     }
                 },
                 {
@@ -55,14 +55,12 @@ namespace WhiskyMan.DatabaseSeedApp
                     new User
                     {
                         Id = 3,
-                        Username = "second_regular",
+                        UserName = "second_regular",
                         Email = "second_regular@email.com",
                         FirstName = "Second",
                         LastName = "Secondovski",
                         Active = true,
                         PictureUrl = GetPictureUrl(),
-                        PasswordHash = GetPasswordHash(),
-                        PasswordSalt = GetPasswordSalt()
                     }
                 },
 
@@ -71,14 +69,12 @@ namespace WhiskyMan.DatabaseSeedApp
                     new User
                     {
                         Id = 4,
-                        Username = "owner_user",
+                        UserName = "owner_user",
                         Email = "owner_user@email.com",
                         FirstName = "Owner",
                         LastName = "Ownerovski",
                         Active = true,
                         PictureUrl = GetPictureUrl(),
-                        PasswordHash = GetPasswordHash(),
-                        PasswordSalt = GetPasswordSalt()
                     }
                 },
                 {
@@ -86,14 +82,12 @@ namespace WhiskyMan.DatabaseSeedApp
                     new User
                     {
                         Id = 5,
-                        Username = "owner2_user",
+                        UserName = "owner2_user",
                         Email = "owner2_user@email.com",
                         FirstName = "Owner",
                         LastName = "Ownerovski jr.",
                         Active = true,
                         PictureUrl = GetPictureUrl(),
-                        PasswordHash = GetPasswordHash(),
-                        PasswordSalt = GetPasswordSalt()
                     }
                 },
                 {
@@ -101,14 +95,12 @@ namespace WhiskyMan.DatabaseSeedApp
                     new User
                     {
                         Id = 6,
-                        Username = "inactive_user",
+                        UserName = "inactive_user",
                         Email = "inactive_user@email.com",
                         FirstName = "Inactiv",
                         LastName = "Inactivski",
                         Active = false,
                         PictureUrl = GetPictureUrl(),
-                        PasswordHash = GetPasswordHash(),
-                        PasswordSalt = GetPasswordSalt()
                     }
                 }
             };
@@ -592,8 +584,8 @@ namespace WhiskyMan.DatabaseSeedApp
             #endregion
 
             #region Filling DB
-            context.Users
-                .AddRange(users.Values);
+            foreach (var user in users.Values)
+                userManager.CreateAsync(user, passwd).Wait();
             Console.WriteLine("  ... users filled");
 
             context.Tags
@@ -620,30 +612,8 @@ namespace WhiskyMan.DatabaseSeedApp
             #endregion
         }
 
-        /// <summary>
-        /// Gets password salt
-        /// Secret is "super ultra secure key"
-        /// Password is "passwd"
-        /// </summary>
-        private static byte[] GetPasswordSalt()
-            => StringToByteArray("7f2baa1fe7e1d9d514f75ac432d270de66bd6dc6fb2bc9ad2eff8ae7c163ec6cec4d934abe9a0c1e90ed163996a6ffe7b5c6cfbbaf6b931c1fd79f9cffc89c24dc4d59386c715459bcabb0b8913f7868f9ff71eecbd9b6d1adc70c40fd177d150bc19092f38db68a0ddf406d6dab62e58d7797f5345a1b2443151968ff6f9ea9");
-
-        /// <summary>
-        /// Gets password hash
-        /// Secret is "super ultra secure key"
-        /// Password is "passwd"
-        /// </summary>
-        private static byte[] GetPasswordHash()
-            => StringToByteArray("01c10fb1feee8b2eff8a94d19ed6df0d099c73b2030137ea68a78c47639eeb1cb2faf5b563f958d8f72f3f6838bccbab6529a68ccdef2c9af99ad7e31ab928c4");
-
         private static string GetPictureUrl()
             => "https://i.pinimg.com/originals/74/1e/7e/741e7e249e599a8c360dc459667c3407.jpg";
-
-        private static byte[] StringToByteArray(string hex)
-            => Enumerable.Range(0, hex.Length)
-                    .Where(x => x % 2 == 0)
-                    .Select(x => Convert.ToByte(hex.Substring(x, 2), 16))
-                    .ToArray();
 
         private static void SetAmountsFor(List<Transaction> transactions)
         {

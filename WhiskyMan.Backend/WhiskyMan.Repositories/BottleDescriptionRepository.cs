@@ -25,7 +25,7 @@ namespace WhiskyMan.Repositories
             this.mapper = mapper;
         }
 
-        public async Task<int> AddBottleDescription(BottleDescriptionForAddition bottleDescription)
+        public async Task<long> AddBottleDescription(BottleDescriptionForAddition bottleDescription)
         {
             var descriptionEntity = mapper.Map<BottleDescription>(bottleDescription);
             descriptionEntity.Tags = await dataContext.Tags

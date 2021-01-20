@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.ComponentModel.DataAnnotations;
+using WhiskyMan.Entities.Auth;
 
 namespace WhiskyMan.Entities
 {
@@ -9,15 +10,15 @@ namespace WhiskyMan.Entities
     public record Transaction
     {
         [Key]
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         [Required]
         public User Buyer { get; set; }
-        public int BuyerId { get; set; }
+        public long BuyerId { get; set; }
 
         [Required]
         public Bottle Bottle { get; set; }
-        public int BottleId { get; set; }
+        public long BottleId { get; set; }
 
         [Required]
         public int Amount_ml { get; set; }

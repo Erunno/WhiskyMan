@@ -2,6 +2,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
+using WhiskyMan.Entities.Auth;
 
 namespace WhiskyMan.Entities
 {
@@ -9,11 +10,11 @@ namespace WhiskyMan.Entities
     public record Bottle
     {
         [Key]
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         [Required]
         public BottleDescription BottleDescription { get; set; }
-        public int BottleDescriptionId { get; set; }
+        public long BottleDescriptionId { get; set; }
 
         [Required]
         public int Amount_ml { get; set; }

@@ -8,7 +8,7 @@ namespace WhiskyMan.Models.User
 {
     public record UserForLogin
     {
-        public string Username { get; set; }
+        public string UserName { get; set; }
         public string Password { get; set; }
     }
 
@@ -16,7 +16,7 @@ namespace WhiskyMan.Models.User
     {
         public Validator_UserForLogin()
         {
-            RuleFor(x => x.Username).NotNull().Length(3, EntitiesConfig.NameLength);
+            RuleFor(x => x.UserName).NotNull().Length(3, EntitiesConfig.NameLength);
             RuleFor(x => x.Password).NotNull().Length(3, EntitiesConfig.PasswdLength);
         }
     }

@@ -17,7 +17,7 @@ namespace WhiskyMan.Models.BottleDescription
         public string PictureUrl { get; set; }
         public string DescriptionText { get; set; }
         public string Region { get; set; }
-        public List<int> TagIds { get; set; }
+        public List<long> TagIds { get; set; }
     }
 
     class Validator_UserForRegister : AbstractValidator<BottleDescriptionForAddition>

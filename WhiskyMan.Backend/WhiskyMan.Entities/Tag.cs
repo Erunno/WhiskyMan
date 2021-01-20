@@ -12,13 +12,13 @@ namespace WhiskyMan.Entities
     public record Tag
     {
         [Key]
-        public int Id { get; set; }
+        public long Id { get; set; }
         [Required]
         [MaxLength(EntitiesConfig.NameLength)]
         public string Name { get; set; }
 
         [Required]
-        public bool Active { get; set; }
+        public bool Active { get; set; } = true;
 
         public ICollection<BottleDescription> BottleDescriptions { get; set; }
     }

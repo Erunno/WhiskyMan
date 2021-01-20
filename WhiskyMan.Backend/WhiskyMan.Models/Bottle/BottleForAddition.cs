@@ -9,12 +9,12 @@ namespace WhiskyMan.Models.Bottle
 {
     public record BottleForAddition
     {
-        public int BottleDescriptionId { get; set; }
+        public long BottleDescriptionId { get; set; }
         public int Amount_ml { get; set; }
         public decimal ShotPrice { get; set; }
         public decimal BottlePrice { get; set; }
         public int WastePercent { get; set; }
-        public List<int> OwnerIds { get; set; }
+        public List<long> OwnerIds { get; set; }
     }
     class Validator_BottleForAddition : AbstractValidator<BottleForAddition>
     {
