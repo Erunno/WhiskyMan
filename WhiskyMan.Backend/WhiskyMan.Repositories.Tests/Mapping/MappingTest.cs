@@ -10,7 +10,7 @@ namespace WhiskyMan.Repositories.Tests.Mapping
 {
     class MappingTest
     {
-        protected TDestination TestMapping<TSource, TDestination>(TSource input, TDestination expected) 
+        protected TDestination TestMapping<TSource, TDestination>(TSource input, TDestination expected) where TDestination : IEquatable<TDestination>
         {
             // arrange
             var mapper = MapperProvider.GetMapper();

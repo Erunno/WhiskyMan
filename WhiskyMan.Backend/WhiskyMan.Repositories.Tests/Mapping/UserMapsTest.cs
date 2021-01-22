@@ -40,7 +40,11 @@ namespace WhiskyMan.Repositories.Tests.Mapping
         public void UserForRegister_User()
             => TestMapping<UserForRegister, User>(
                 input: GetUserForRegister(),
-                expected: GetUserEntityWithNoCollections()
+                expected: GetUserEntityWithNoCollections(),
+
+                // don't check following properties
+                nameof(User.Id),
+                nameof(User.ConcurrencyStamp)
                 );
         
         private User GetUserEntityWithNoCollections()
