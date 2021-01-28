@@ -17,10 +17,23 @@ namespace WhiskyMan.Repositories.Tests.Mapping
 
         [Test]
         public void User_UserModel()
-            => TestMapping<User, UserModel>(
+        {
+            // arrange
+
+            var expected = GetUserModel();
+
+            // act + assert
+            var actual = TestMapping<User, UserModel>(
                 input: GetUserEntityWithNoCollections(),
-                expected: GetUserModel()
+                expected: expected,
+
+                // don't check following properties
+                nameof(UserModel.Roles)
                 );
+
+            // additional assert
+            CollectionAssert.AreEquivalent(expected.Roles, actual.Roles);
+        }
 
         [Test]
         public void User_UserView()
@@ -56,7 +69,8 @@ namespace WhiskyMan.Repositories.Tests.Mapping
                 LastName = "Smith",
                 Email = "zdibrich@email.cz",
                 PictureUrl = "url.com",
-                Active = true
+                Active = true,
+                Roles = new List<Role> { new Role { Name = "testRole" }, new Role { Name = "anotherTestRole" } }
             };
         
         private UserModel GetUserModel()
@@ -67,7 +81,8 @@ namespace WhiskyMan.Repositories.Tests.Mapping
                 FirstName = "Zdibrich",
                 LastName = "Smith",
                 Email = "zdibrich@email.cz",
-                PictureUrl = "url.com"
+                PictureUrl = "url.com",
+                Roles = new List<string> { "testRole", "anotherTestRole" }
             };
 
         private UserForRegister GetUserForRegister()

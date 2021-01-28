@@ -22,7 +22,7 @@ namespace WhiskyMan.DatabaseSeedApp
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Opening database ...");
             var context = Setup.GetSqliteDataContext(pathToSqliteFile);
-            var userManger = Setup.GetUserManager(context);
+            var (userManager, roleManager) = Setup.GetUserAndRoleManager(context);
             Console.WriteLine("Done.\n");
 
             Console.ForegroundColor = ConsoleColor.Red;
@@ -32,7 +32,7 @@ namespace WhiskyMan.DatabaseSeedApp
 
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Filling up database ...");
-            FillUp.Run(context, userManger);
+            FillUp.Run(context, userManager, roleManager);
             Console.WriteLine("Done.\n");
 
             Console.ForegroundColor = ConsoleColor.White;

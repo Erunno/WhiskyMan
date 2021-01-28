@@ -13,12 +13,17 @@ namespace WhiskyMan.DatabaseSeedApp
     class FillUp
     {
 
-        public static void Run(DataContext context, UserManager<User> userManager)
+        public static void Run(DataContext context, UserManager<User> userManager, RoleManager<Role> roleManager)
         {
             var passwd = "Passwd001";
 
             #region Roles
-
+            var roles = new List<Role>
+            {
+                new Role { Name = Roles.Admin },
+                new Role { Name = Roles.Owner },
+                new Role { Name = Roles.Customer },
+            };
             #endregion
 
             #region Users
@@ -103,6 +108,16 @@ namespace WhiskyMan.DatabaseSeedApp
                         PictureUrl = GetPictureUrl(),
                     }
                 }
+            };
+
+            var userRoles = new Dictionary<string, List<string>>
+            {
+                { "admin", new List<string> { Roles.Admin, Roles.Owner, Roles.Customer } },
+                { "user_1", new List<string> { Roles.Customer } },
+                { "user_2", new List<string> { Roles.Customer } },
+                { "inactive", new List<string> { Roles.Customer } },
+                { "owner_1", new List<string> { Roles.Owner, Roles.Customer } },
+                { "owner_2", new List<string> { Roles.Owner, Roles.Customer } },
             };
             #endregion
 
@@ -584,9 +599,19 @@ namespace WhiskyMan.DatabaseSeedApp
             #endregion
 
             #region Filling DB
+            foreach (var role in roles)
+                roleManager.CreateAsync(role).Wait();
+            Console.WriteLine("  ... roles filled");
+
             foreach (var user in users.Values)
                 userManager.CreateAsync(user, passwd).Wait();
+            
+            foreach (var userKey in userRoles.Keys)
+                userManager.AddToRolesAsync(users[userKey], userRoles[userKey]);
+            
             Console.WriteLine("  ... users filled");
+
+
 
             context.Tags
                 .AddRange(tags.Values);

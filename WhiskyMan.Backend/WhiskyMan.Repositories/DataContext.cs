@@ -44,6 +44,18 @@ namespace WhiskyMan.Repositories
                     o => o.HasOne(o => o.User).WithMany(b => b.UserRoles)
                 );
 
+            builder.Entity<User>()
+                .HasMany(u => u.UserRoles)
+                .WithOne(b => b.User)
+                .HasForeignKey(ur => ur.UserId)
+                .IsRequired();
+
+            builder.Entity<Role>()
+                .HasMany(u => u.UserRoles)
+                .WithOne(b => b.Role)
+                .HasForeignKey(ur => ur.RoleId)
+                .IsRequired();
+
             builder.Entity<SpecialPrice>().HasKey(sp => new { sp.BottleId, sp.UserId });
         }
 

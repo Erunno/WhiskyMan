@@ -240,19 +240,9 @@ namespace WhiskyMan.API.Migrations
                     b.Property<long>("RoleId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<long?>("RoleId1")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long?>("UserId1")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("UserId", "RoleId");
 
                     b.HasIndex("RoleId");
-
-                    b.HasIndex("RoleId1");
-
-                    b.HasIndex("UserId1");
 
                     b.ToTable("AspNetUserRoles");
                 });
@@ -485,25 +475,17 @@ namespace WhiskyMan.API.Migrations
 
             modelBuilder.Entity("WhiskyMan.Entities.Auth.UserRole", b =>
                 {
-                    b.HasOne("WhiskyMan.Entities.Auth.Role", null)
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("WhiskyMan.Entities.Auth.Role", "Role")
                         .WithMany("UserRoles")
-                        .HasForeignKey("RoleId1");
-
-                    b.HasOne("WhiskyMan.Entities.Auth.User", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("WhiskyMan.Entities.Auth.User", "User")
                         .WithMany("UserRoles")
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Role");
 

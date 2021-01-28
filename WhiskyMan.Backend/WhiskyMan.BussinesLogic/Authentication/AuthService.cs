@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -56,11 +57,14 @@ namespace WhiskyMan.BusinessLogic.Authentication
         {
             var user = await repo.GetUser(username);
 
-            var claims = new[]
+            var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.UserName)
+                new Claim(ClaimTypes.Name, user.UserName),
             };
+
+            foreach (var role in user.Roles)
+                claims.Add(new Claim(ClaimTypes.Role, role));
 
             var key = new SymmetricSecurityKey(
                 Encoding.UTF8.GetBytes(config.GetSection("AppSettings:Token").Value));

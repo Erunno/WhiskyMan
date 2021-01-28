@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "WhiskyMan.DatabaseSeedApp": {
+      "commandName": "Project",
+      "commandLineArgs": "..\\..\\..\\..\\WhiskyMan.API\\whiskyMan.db"
+    }
+  }
+}

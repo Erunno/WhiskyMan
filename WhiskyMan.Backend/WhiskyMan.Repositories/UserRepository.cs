@@ -30,10 +30,21 @@ namespace WhiskyMan.Repositories.Interfaces
             this.mapper = mapper;
         }
 
-        public Task<IdentityResult> AddUser(UserForRegister user)
+        public async Task<IdentityResult> AddUser(UserForRegister user)
         {
-            var userEntity = mapper.Map<User>(user);
-            return userManager.CreateAsync(userEntity, user.Password);
+            using (var transaction = context.Database.BeginTransaction())
+            {
+                var userEntity = mapper.Map<User>(user);
+                var result = await userManager.CreateAsync(userEntity, user.Password);
+
+                if (result.Succeeded)
+                    result = await userManager.AddToRoleAsync(userEntity, Roles.Customer);
+
+                if (result.Succeeded)
+                    transaction.Commit();
+
+                return result;
+            }
         }
 
         public Task<List<UserReference>> GetActiveUserReferences()
@@ -51,7 +62,8 @@ namespace WhiskyMan.Repositories.Interfaces
         public async Task<UserModel> GetUser(string username)
         {
             var usernameLower = username.ToLower();
-            var user = await context.Users
+            var user = await userManager.Users
+                .Include(user => user.Roles)
                 .SingleOrDefaultAsync(u => u.UserName == usernameLower);
 
             return user != null ? mapper.Map<UserModel>(user) : null;

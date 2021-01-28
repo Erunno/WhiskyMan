@@ -11,5 +11,7 @@ namespace WhiskyMan.Repositories.Interfaces.Wrappers
     public interface IUserManagerWrapper
     {
         Task<IdentityResult> CreateAsync(User user, string password);
+        Task<IdentityResult> AddToRoleAsync(User user, string role);
+        IQueryable<User> Users { get; }
     }
 }
