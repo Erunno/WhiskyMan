@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace WhiskyMan.Models.User
 {
@@ -10,5 +11,6 @@ namespace WhiskyMan.Models.User
         public string LastName { get; set; }
         public string Email { get; set; }
         public string PictureUrl { get; set; }
+        public List<string> Roles { get; set; }
     }
 }

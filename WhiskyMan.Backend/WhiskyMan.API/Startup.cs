@@ -14,6 +14,7 @@ using System.Text;
 using WhiskyMan.BusinessLogic.Authentication;
 using WhiskyMan.Entities.Auth;
 using WhiskyMan.Repositories;
+using WhiskyMan.Repositories.DatabaseStartup;
 using WhiskyMan.Repositories.Interfaces;
 using WhiskyMan.Repositories.Interfaces.Wrappers;
 using WhiskyMan.Repositories.Mapping;
@@ -63,6 +64,8 @@ namespace WhiskyMan
             services.AddScoped<IBottleDescriptionRepository, BottleDescriptionRepository>();
             services.AddScoped<IUserManagerWrapper, UserManagerWrapper>();
             services.AddScoped<ISignInManagerWrapper, SignInManagerWrapper>();
+            services.AddScoped<IRoleManagerWrapper, RoleManagerWrapper>();
+            services.AddScoped<UpdateRolesOperation>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).
                 AddJwtBearer(options =>
@@ -76,6 +79,7 @@ namespace WhiskyMan
                         ValidateAudience = false
                     };
                 });
+
         }
 
 

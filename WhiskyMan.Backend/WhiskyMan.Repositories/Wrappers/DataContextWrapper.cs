@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,8 @@ namespace WhiskyMan.Repositories
         public IQueryable<Transaction> Transactions => context.Transactions;
         public IQueryable<Tag> Tags => context.Tags;
         public IQueryable<SpecialPrice> SpecialPrices => context.SpecialPrices;
+
+        public DatabaseFacade Database => context.Database;
 
         public EntityEntry<TEntity> AddEntity<TEntity>(TEntity entity) where TEntity : class
             => context.Add(entity);

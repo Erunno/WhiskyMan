@@ -22,7 +22,7 @@ namespace WhiskyMan.DatabaseSeedApp
             return new DataContext(builder.Options);
         }
 
-        public static UserManager<User> GetUserManager(DataContext context)
+        public static (UserManager<User>, RoleManager<Role>) GetUserAndRoleManager(DataContext context)
         {
             IServiceCollection services = new ServiceCollection();
 
@@ -39,7 +39,10 @@ namespace WhiskyMan.DatabaseSeedApp
 
             var serviceProvider = services.BuildServiceProvider();
 
-            return serviceProvider.GetService<UserManager<User>>();
+            return (
+                serviceProvider.GetService<UserManager<User>>(),
+                serviceProvider.GetService<RoleManager<Role>>()
+                );
         }
 
         /// <summary>
@@ -71,6 +74,10 @@ namespace WhiskyMan.DatabaseSeedApp
             context.Users
                 .RemoveRange(context.Users);
             Console.WriteLine("  ... users deleted");
+
+            context.Roles
+                .RemoveRange(context.Roles);
+            Console.WriteLine("  ... roles deleted");
 
             context.SaveChanges();
         }

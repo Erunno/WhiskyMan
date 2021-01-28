@@ -23,5 +23,10 @@ namespace WhiskyMan.Repositories.Wrappers
 
         public Task<IdentityResult> CreateAsync(User user, string password)
             => userManager.CreateAsync(user, password);
+
+        public Task<IdentityResult> AddToRoleAsync(User user, string role)
+            => userManager.AddToRoleAsync(user, role);
+
+        public IQueryable<User> Users => userManager.Users;
     }
 }
