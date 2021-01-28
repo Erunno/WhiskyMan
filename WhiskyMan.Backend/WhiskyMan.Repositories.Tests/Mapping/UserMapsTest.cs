@@ -57,7 +57,8 @@ namespace WhiskyMan.Repositories.Tests.Mapping
 
                 // don't check following properties
                 nameof(User.Id),
-                nameof(User.ConcurrencyStamp)
+                nameof(User.ConcurrencyStamp),
+                nameof(User.Roles)
                 );
         
         private User GetUserEntityWithNoCollections()
