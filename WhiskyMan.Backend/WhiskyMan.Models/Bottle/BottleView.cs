@@ -8,7 +8,7 @@ namespace WhiskyMan.Models.Bottle
 {
     public record BottleView
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string Name { get; set; }
         public decimal ShotPrice { get; set; }
         public string Distillery { get; set; }

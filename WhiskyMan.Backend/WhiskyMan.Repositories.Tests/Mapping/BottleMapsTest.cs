@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WhiskyMan.Entities;
+using WhiskyMan.Entities.Auth;
 using WhiskyMan.Models.Bottle;
 
 namespace WhiskyMan.Repositories.Tests.Mapping
@@ -92,7 +93,7 @@ namespace WhiskyMan.Repositories.Tests.Mapping
                 Amount_ml = 700,
                 BottleDescriptionId = 2,
                 BottlePrice = 1000,
-                OwnerIds = new List<int> { 1, 2, 3 },
+                OwnerIds = new List<long> { 1, 2, 3 },
                 ShotPrice = 20,
                 WastePercent = 15
             };

@@ -1,5 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
+using WhiskyMan.Entities.Auth;
 
 namespace WhiskyMan.DatabaseSeedApp
 {
@@ -20,6 +22,7 @@ namespace WhiskyMan.DatabaseSeedApp
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Opening database ...");
             var context = Setup.GetSqliteDataContext(pathToSqliteFile);
+            var userManger = Setup.GetUserManager(context);
             Console.WriteLine("Done.\n");
 
             Console.ForegroundColor = ConsoleColor.Red;
@@ -29,7 +32,7 @@ namespace WhiskyMan.DatabaseSeedApp
 
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Filling up database ...");
-            FillUp.Run(context);
+            FillUp.Run(context, userManger);
             Console.WriteLine("Done.\n");
 
             Console.ForegroundColor = ConsoleColor.White;

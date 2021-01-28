@@ -10,7 +10,7 @@ namespace WhiskyMan.Entities
     public record BottleDescription
     {
         [Key]
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         [Required]
         [MaxLength(EntitiesConfig.NameLength)]

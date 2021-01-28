@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WhiskyMan.Entities.Auth;
 
 namespace WhiskyMan.Entities
 {
@@ -19,10 +20,10 @@ namespace WhiskyMan.Entities
 
         [Required]
         public Bottle Bottle { get; set; }
-        public int BottleId { get; set; }
+        public long BottleId { get; set; }
 
         [Required]
         public User User { get; set; }
-        public int UserId { get; set; }
+        public long UserId { get; set; }
     }
 }

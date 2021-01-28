@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WhiskyMan.Entities;
+using WhiskyMan.Entities.Auth;
 
 namespace WhiskyMan.Repositories.Interfaces
 {
