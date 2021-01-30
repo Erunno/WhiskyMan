@@ -14,7 +14,7 @@ namespace WhiskyMan.Repositories.Tests.Mapping
     class BottleMapsTest : MappingTest
     {
         [Test]
-        public void UserForRegister_UserForAuthModel()
+        public void BottleForAddition_Bottle()
             => TestMapping<BottleForAddition, Bottle>(
                 input: GetBottleForAddition(),
                 expected: GetBottle(),
@@ -24,7 +24,8 @@ namespace WhiskyMan.Repositories.Tests.Mapping
                 nameof(Bottle.Owners),
                 nameof(Bottle.Transactions),
                 nameof(Bottle.BottleDescription),
-                nameof(Bottle.Ownerships)
+                nameof(Bottle.Ownerships),
+                nameof(Bottle.SpecialPrices)
                 );
 
         [Test]
