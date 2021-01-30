@@ -1,11 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Bottles\" />
+    <Compile Remove="Bottles\**" />
+    <EmbeddedResource Remove="Bottles\**" />
+    <None Remove="Bottles\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WhiskyMan.Models\WhiskyMan.Models.csproj" />
   </ItemGroup>
 
 </Project>

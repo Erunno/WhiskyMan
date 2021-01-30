@@ -16,6 +16,7 @@ import { BottleDescriptionDetailComponent } from './bottle-description-detail/bo
 import { NgSelectModule } from '@ng-select/ng-select';
 import { BottleEditComponent } from './x_shared/components/bottle-edit/bottle-edit.component';
 import { BottleDetailComponent } from './bottle-detail/bottle-detail.component';
+import { PaymentConfirmationComponent } from './x_shared/components/bottle-view-card/payment-confirmation/payment-confirmation.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { BottleDetailComponent } from './bottle-detail/bottle-detail.component';
     BottleDescriptionEditComponent,
     BottleDescriptionDetailComponent,
     BottleEditComponent,
-    BottleDetailComponent
+    BottleDetailComponent,
+    PaymentConfirmationComponent
   ],
   imports: [
     CommonModule,
@@ -37,7 +39,8 @@ import { BottleDetailComponent } from './bottle-detail/bottle-detail.component';
     SharedModule,
     HttpClientModule,
     ReactiveFormsModule,
-    NgSelectModule
+    NgSelectModule,
+    FormsModule
   ],
   exports: [
     BottlesRoutingModule

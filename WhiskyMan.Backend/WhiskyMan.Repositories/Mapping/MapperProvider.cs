@@ -16,6 +16,7 @@ namespace WhiskyMan.Repositories.Mapping
                 UserMaps.CreateMaps(mce);
                 BottleMaps.CreateMaps(mce);
                 BottleDescriptionMaps.CreateMaps(mce);
+                TransactionMaps.CreateMaps(mce);
             });
     }
 }

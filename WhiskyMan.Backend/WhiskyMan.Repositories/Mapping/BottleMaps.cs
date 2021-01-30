@@ -34,6 +34,19 @@ namespace WhiskyMan.Repositories.Mapping
                 .ForMember(
                     dest => dest.Owners,
                     opt => opt.MapFrom(b => b.Owners.Select(o => $"{o.FirstName} {o.LastName}").ToList()));
+
+            mce.CreateMap<Bottle, BottleForPriceModel>()
+                .ForMember(
+                    dest => dest.Owners,
+                    opt => opt.MapFrom(b => b.Owners.Select(o => o.Id).ToList()))
+                .ForMember(
+                    dest => dest.SpecialPrices,
+                    opt => opt.MapFrom(b => b.SpecialPrices
+                            .Select(sp => new SpecialPriceInBottleModel 
+                            {
+                                Price = sp.Price, 
+                                UserId = sp.UserId 
+                            })));
         }
     }
 }

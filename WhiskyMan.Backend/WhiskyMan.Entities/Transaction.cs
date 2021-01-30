@@ -25,7 +25,7 @@ namespace WhiskyMan.Entities
         [Required]
         public decimal Price { get; set; }
         [Required]
-        public DateTime CreationTime { get; set; }
+        public DateTime CreationTime { get; set; } = DateTime.Now;
         
         [Required]
         public bool IsPayed { get; set; }

@@ -1,5 +1,5 @@
 .alert-container {
-  position: absolute;
+  position: fixed;
   width: 50%;
   top: 2%;
   left: 25%;

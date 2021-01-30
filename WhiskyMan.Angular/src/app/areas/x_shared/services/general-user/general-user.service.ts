@@ -9,7 +9,7 @@ import { UserReference } from '../../models/user-reference';
 })
 export class GeneralUserService {
 
-  private baseAddr = environment.apiUrl + 'users/'
+  private baseAddr = environment.apiUrl + 'users/';
 
   constructor(
     private http: HttpClient

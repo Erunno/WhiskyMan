@@ -13,7 +13,15 @@
         {{ owner }}
       </span>
     </p>
-    <a href="#" class="btn btn-outline-success">${{ bottle.shotPrice }}</a>
+    <a
+      (click)="showPaymentConfirmation = true"
+      class="btn btn-outline-success">${{ bottle.shotPrice }}</a>
     <a [routerLink]="['../detail', bottle.id]" class="btn btn-outline-primary">Detail</a>
   </div>
 </div>
+
+<app-payment-confirmation
+  *ngIf="showPaymentConfirmation"
+  [bottle]="bottle"
+  (transactionComplete)="onTransactionComplete()"
+></app-payment-confirmation>

@@ -11,5 +11,6 @@ namespace WhiskyMan.Repositories.Interfaces
     {
         Task<long> AddBottle(BottleForAddition bottle);
         Task<List<BottleView>> GetActiveBottleViews();
+        Task<BottleForPriceModel> GetBottleForPriceModel(long bottleId);
     }
 }
