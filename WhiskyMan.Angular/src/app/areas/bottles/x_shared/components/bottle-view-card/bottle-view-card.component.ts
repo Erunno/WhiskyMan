@@ -10,9 +10,15 @@ export class BottleViewCardComponent implements OnInit {
 
   @Input() public bottle: BottleForView;
 
+  public showPaymentConfirmation = false;
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  public onTransactionComplete(): void {
+    this.showPaymentConfirmation = false;
   }
 
 }

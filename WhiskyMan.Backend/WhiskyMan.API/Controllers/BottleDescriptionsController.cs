@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WhiskyMan.Entities.Auth;
 using WhiskyMan.Models.BottleDescription;
 using WhiskyMan.Repositories.Interfaces;
 
@@ -21,7 +22,7 @@ namespace WhiskyMan.API.Controllers
             this.repo = repo;
         }
 
-        [Authorize]
+        [Authorize(Roles = Roles.Owner)]
         [HttpPost("add-description")]
         public async Task<IActionResult> AddDescription(BottleDescriptionForAddition bottleDescription)
         {
@@ -32,10 +33,12 @@ namespace WhiskyMan.API.Controllers
         }
 
         [HttpGet("active-references")]
+        [Authorize(Roles = Roles.Customer)]
         public async Task<IActionResult> GetActiveBottleDescriptionReferences()
             => Ok(await repo.GetActiveBottleDescriptionsReferences());
 
         [HttpGet("active-tags")]
+        [Authorize(Roles = Roles.Customer)]
         public async Task<IActionResult> GetActiveTags()
             => Ok(await repo.GetActiveTagReferences());
     }

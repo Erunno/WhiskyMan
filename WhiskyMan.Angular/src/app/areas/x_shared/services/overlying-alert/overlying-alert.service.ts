@@ -15,32 +15,32 @@ export class OverlyingAlertService {
   )  {
     router.events.subscribe(
       _ => {
-        this.alerts = this.alerts.filter((alert, _, __) => alert.surviveToNextPage)
+        this.alerts = this.alerts.filter((alert, __, ___) => alert.surviveToNextPage);
       }
-    )
+    );
   }
 
   public get activeAlerts(): Alert[] {
     return this.alerts;
   }
 
-  public addAlert(alert: Alert) {
+  public addAlert(alert: Alert): void {
     this.alerts.push(alert);
   }
 
-  public addSucces(message: string, surviveToNextPage?: boolean) {
+  public addSucces(message: string, surviveToNextPage?: boolean): void {
     this.addAlert({
-      message: message,
+      message,
       type: AlertType.Succes,
-      surviveToNextPage: surviveToNextPage
+      surviveToNextPage
     });
   }
 
-  public addError(message: string, surviveToNextPage?: boolean) {
+  public addError(message: string, surviveToNextPage?: boolean): void {
     this.addAlert({
-      message: message,
+      message,
       type: AlertType.Error,
-      surviveToNextPage: surviveToNextPage
+      surviveToNextPage
     });
   }
 }

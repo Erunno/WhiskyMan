@@ -26,7 +26,7 @@ export class AllListComponent implements OnInit {
       .subscribe(
         data => this.bottles = data,
         err => this.alertService.addError(
-          `Unable to load active bottles (error: ${err})`
+          `Unable to load active bottles (error: ${err.message})`
         ));
   }
 

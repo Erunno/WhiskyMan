@@ -23,10 +23,12 @@ namespace WhiskyMan.API.Controllers
         }
 
         [HttpGet("all-active")]
+        [Authorize(Roles = Roles.Customer)]
         public async Task<IActionResult> GetActiveBottlesForView()
             => Ok(await repo.GetActiveBottleViews());
         
         [HttpPost("add-bottle")]
+        [Authorize(Roles = Roles.Owner)]
         public async Task<IActionResult> AddBottle(BottleForAddition bottle)
             => Ok(new 
             { 

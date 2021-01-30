@@ -23,15 +23,8 @@ export class BottleEditComponent implements OnInit {
 
   @Output() public submitAndValidated: EventEmitter<BottleForEdit> = new EventEmitter();
 
-  public descriptionReferences: BottleDescriptionReference[] = [
-    {id: 1, name: "octa", pictureUrl:"https://www.alkohol.cz/images/preview/thumb_340_380_1542816109DSC0002.jpg"},
-    {id: 2, name: "glen", pictureUrl:"https://images-na.ssl-images-amazon.com/images/I/91dcnI0057L._AC_SL1500_.jpg"}
-  ];
-  public userReferences: UserReference[] = [
-    {name: 'torouba', id: 1},
-    {name: 'honza', id: 2},
-    {name: 'prdel', id: 3},
-  ];
+  public descriptionReferences: BottleDescriptionReference[];
+  public userReferences: UserReference[];
 
   public errorMessages: ValidationMessageDictionary = {
     min: {

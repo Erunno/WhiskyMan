@@ -14,7 +14,7 @@ namespace WhiskyMan.Repositories.Tests.Mapping
     class BottleMapsTest : MappingTest
     {
         [Test]
-        public void UserForRegister_UserForAuthModel()
+        public void BottleForAddition_Bottle()
             => TestMapping<BottleForAddition, Bottle>(
                 input: GetBottleForAddition(),
                 expected: GetBottle(),
@@ -24,7 +24,8 @@ namespace WhiskyMan.Repositories.Tests.Mapping
                 nameof(Bottle.Owners),
                 nameof(Bottle.Transactions),
                 nameof(Bottle.BottleDescription),
-                nameof(Bottle.Ownerships)
+                nameof(Bottle.Ownerships),
+                nameof(Bottle.SpecialPrices)
                 );
 
         [Test]
@@ -48,6 +49,34 @@ namespace WhiskyMan.Repositories.Tests.Mapping
             CollectionAssert.AreEquivalent(
                 expected: bottleView.Tags,
                 actual: actual.Tags);
+
+            CollectionAssert.AreEquivalent(
+                expected: bottleView.Owners,
+                actual: actual.Owners);
+
+        }
+
+        [Test]
+        public void Bottle_BottleForPriceModel()
+        {
+            // arrange
+            var bottle = GetBottle();
+            var bottleView = GetBottleForPriceModel();
+
+            // act + assert
+            var actual = TestMapping<Bottle, BottleForPriceModel>(
+                input: bottle,
+                expected: bottleView,
+
+                // don't check following properties
+                nameof(BottleForPriceModel.Owners),
+                nameof(BottleForPriceModel.SpecialPrices)
+                );
+
+            // addintional asserts
+            CollectionAssert.AreEquivalent(
+                expected: bottleView.SpecialPrices,
+                actual: actual.SpecialPrices);
 
             CollectionAssert.AreEquivalent(
                 expected: bottleView.Owners,
@@ -84,6 +113,11 @@ namespace WhiskyMan.Repositories.Tests.Mapping
                     Tags = new List<Tag>() { new Tag { Id = 3, Name = "tag" } },
                     DescriptionText = "desc text",
                     Voltage = 40
+                },
+                SpecialPrices = new List<SpecialPrice>
+                {
+                    new SpecialPrice { UserId = 5, Price = 30 },
+                    new SpecialPrice { UserId = 6, Price = 43 },
                 }
             };
 
@@ -111,6 +145,21 @@ namespace WhiskyMan.Repositories.Tests.Mapping
                 },
                 Tags = new List<string>() { "tag" },
                 ShotPrice = 20
+            };
+
+        private BottleForPriceModel GetBottleForPriceModel()
+            => new BottleForPriceModel
+            {
+                Amount_ml = 700,
+                BottlePrice = 1000,
+                WastePercent = 15,
+                ShotPrice = 20,
+                Owners = new List<long> { 1, 2, 3 },
+                SpecialPrices = new List<SpecialPriceInBottleModel>
+                {
+                    new SpecialPriceInBottleModel { Price = 30, UserId = 5 },
+                    new SpecialPriceInBottleModel { Price = 43, UserId = 6 },
+                }
             };
     }
 }

@@ -49,5 +49,16 @@ namespace WhiskyMan.Repositories
                     .ThenInclude(d => d.Tags)
                 .ProjectTo<BottleView>(mapper.ConfigurationProvider)
                 .ToListAsync();
+
+        public async Task<BottleForPriceModel> GetBottleForPriceModel(long bottleId)
+        {
+            var bottleEntity = 
+                await context.Bottles
+                    .Include(b => b.SpecialPrices)
+                    .Include(b => b.Owners)
+                    .FirstOrDefaultAsync(b => b.Id == bottleId);
+
+            return bottleEntity is not null ? mapper.Map<BottleForPriceModel>(bottleEntity) : null;
+        }   
     }
 }

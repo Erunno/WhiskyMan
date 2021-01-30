@@ -1,6 +1,7 @@
 using AutoMapper;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -12,6 +13,13 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Text;
 using WhiskyMan.BusinessLogic.Authentication;
+using WhiskyMan.BusinessLogic.Interfaces.Policy;
+using WhiskyMan.BusinessLogic.Interfaces.Transactions;
+using WhiskyMan.BusinessLogic.Policy;
+using WhiskyMan.BusinessLogic.Policy.Transactions;
+using WhiskyMan.BusinessLogic.Policy.Users;
+using WhiskyMan.BusinessLogic.Transactions;
+using WhiskyMan.BusinessLogic.Transactions.Operations;
 using WhiskyMan.Entities.Auth;
 using WhiskyMan.Repositories;
 using WhiskyMan.Repositories.DatabaseStartup;
@@ -66,6 +74,11 @@ namespace WhiskyMan
             services.AddScoped<ISignInManagerWrapper, SignInManagerWrapper>();
             services.AddScoped<IRoleManagerWrapper, RoleManagerWrapper>();
             services.AddScoped<UpdateRolesOperation>();
+            services.AddHttpContextAccessor();
+            services.AddScoped<IRequestBodyAccessor, RequestBodyAccessor>();
+            services.AddScoped<GetTransactionPriceOperation>();
+            services.AddScoped<ITransactionRepository, TransactionRepository>();
+            services.AddScoped<ITransactionFacade, TransactionFacade>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).
                 AddJwtBearer(options =>
@@ -80,6 +93,18 @@ namespace WhiskyMan
                     };
                 });
 
+
+            // policies
+            services.AddScoped<IAuthorizationHandler, AddOwnTransactionHandler>();
+            services.AddScoped<IAuthorizationHandler, ViewOwnUserInfoHandler>();
+
+            services.AddAuthorization(opt =>
+            {
+                opt.AddPolicy(TransactionPolicies.AddOwnTransaction, policy =>
+                    policy.Requirements.Add(new AddOwnTransactionRequirement()));
+                opt.AddPolicy(UserPolicies.ViewOwnUserInfo, policy =>
+                    policy.Requirements.Add(new ViewOwnUserInfoRequirement()));
+            });
         }
 
 
@@ -96,7 +121,7 @@ namespace WhiskyMan
             app.UseRouting();
 
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-
+            
             app.UseAuthentication();
             app.UseAuthorization();
 
